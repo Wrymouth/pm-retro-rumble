@@ -976,6 +976,10 @@
 - kkj_bt01_hit
 - kkj_bt02_shape
 - kkj_bt02_hit
+- ret_00_shape
+- ret_00_hit
+- ret_bt00_shape
+- ret_bt00_hit
 - mac_tex
 - tik_tex
 - kgr_tex
@@ -1004,6 +1008,7 @@
 - end_tex
 - mgm_tex
 - gv__tex
+- ret_tex
 - kmr_bg
 - nok_bg
 - name: sbk_bg

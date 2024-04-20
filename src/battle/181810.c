@@ -504,9 +504,9 @@ s32 is_actor_health_bar_visible(Actor* actor) {
     BattleStatus* battleStatus = &gBattleStatus;
     s32 flags;
 
-    if (is_ability_active(ABILITY_PEEKABOO)) {
+    // if (is_ability_active(ABILITY_PEEKABOO)) {
         return TRUE;
-    }
+    // }
 
     flags = get_global_byte(EVT_INDEX_OF_GAME_BYTE(GB_Tattles_00) + actor->actorType / 8);
     if (actor->flags & ACTOR_FLAG_TYPE_CHANGED) {
@@ -522,9 +522,9 @@ s32 is_actortype_health_bar_visible(s32 actorType) {
     s32 byteIdx;
     s32 flagIdx;
 
-    if (is_ability_active(ABILITY_PEEKABOO)) {
+    // if (is_ability_active(ABILITY_PEEKABOO)) {
         return TRUE;
-    }
+    // }
 
     flags = get_global_byte(EVT_INDEX_OF_GAME_BYTE(GB_Tattles_00) + actorType / 8);
     flags |= battleStatus->tattleFlags[actorType / 8];

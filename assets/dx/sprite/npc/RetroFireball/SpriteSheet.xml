@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="3">
+	<PaletteList>
+		<Palette id="0" src="Default.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Still" palette="0" src="Still.png"/>
+		<Raster id="1" name="Still2" palette="0" src="Still2.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Idle">
+			<Component xyz="0,0,0">
+				<Command val="1000"/>
+				<Command val="8"/>
+				<Command val="1001"/>
+				<Command val="8"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

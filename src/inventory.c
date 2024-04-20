@@ -64,7 +64,7 @@ void clear_player_data(void) {
     playerData->level = 1;
     playerData->bootsLevel = 0;
     playerData->hammerLevel = -1;
-    playerData->hasActionCommands = FALSE;
+    playerData->hasActionCommands = TRUE;
     playerData->coins = 0;
     playerData->starPieces = 0;
     playerData->starPoints = 0;
@@ -79,10 +79,12 @@ void clear_player_data(void) {
     playerData->starPower = 0;
     playerData->starBeamLevel = 0;
 
-    playerData->curPartner = PARTNER_NONE;
+    evt_set_variable(NULL, GF_Tutorial_GotItem, TRUE);
+
+    playerData->curPartner = PARTNER_GOOMBARIO;
 
     for (i = 0; i < ARRAY_COUNT(playerData->partners); i++) {
-        playerData->partners[i].enabled = FALSE;
+        playerData->partners[i].enabled = TRUE;
         playerData->partners[i].level = PARTNER_RANK_NORMAL;
         playerData->partners[i].unk_02[0] = 0;
         playerData->partners[i].unk_02[1] = 0;

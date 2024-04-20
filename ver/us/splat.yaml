@@ -10538,6 +10538,7 @@ segments:
     subsegments:
     - [auto, c, tst_01_1_main]
     - [auto, c, tst_01_2_entity]
+    - [auto, c, tst_01_3_npcs]
   - name: tst_02
     dir: world/area_tst/tst_02
     type: code
@@ -14555,8 +14556,28 @@ segments:
       - 2C_QuizQuestions
       - 2D_QuizChoices
       - 2E_Credits
+      - 2F_Game
   - [0x1C84D30, bin, unk_1C84D30] # junk(?)
   - [0x1E00000, bin, copy_1E00000] # copy of 0x1943000 - 0x1983000
   - [0x1E40000, pm_map_data, mapfs]
   - { name: copy_27FEE22, type: bin, start: 0x27FEE22, subalign: 2 } # copy of 0x232EE22 - 0x2330000
   - [0x2800000]
+  - dir: battle/area/ret
+    type: code
+    start: auto
+    vram_class: battle_area
+    subsegments:
+    - [auto, c, actor/retro_bowser]
+    - [auto, c, actor/retro_axe]
+    - [auto, c, stage/ret_00]
+    - [auto, c, area]
+  - name: ret_00
+    dir: world/area_ret/ret_00
+    type: code
+    start: auto
+    vram_class: map
+    subsegments:
+    - [auto, c, ret_00_0_header]
+    - [auto, c, ret_00_1_main]
+  - [0xDEADBEEF] # end
+

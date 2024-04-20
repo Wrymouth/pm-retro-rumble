@@ -440,7 +440,14 @@ class TexImage:
         pos = len(bytes)
 
         # form raw name and write to header
-        raw_name = tex_name[:4] + self.img_name + self.raw_ext
+        raw_name = ""
+        if tex_name[:4] not in self.img_name:
+            raw_name += tex_name[:4]
+            
+        raw_name += self.img_name
+        
+        if self.raw_ext not in self.img_name:
+            raw_name += self.raw_ext
         name_bytes = raw_name.encode("ascii")
         bytes += name_bytes
 

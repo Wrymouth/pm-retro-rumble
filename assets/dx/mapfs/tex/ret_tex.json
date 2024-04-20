@@ -1,0 +1,62 @@
+[
+    {
+        "name": "ret_berosaidetif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "ret_berosaide2tif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "ret_bricktif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "ret_brickfloortif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "ret_lavatif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "ret_axetif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    }
+]

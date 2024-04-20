@@ -94,6 +94,7 @@ BattleArea gBattleAreas[] = {
     [BTL_AREA_OMO2_4]   BTL_AREA_AUX(omo2_4, "エリア ＯＭＯ２＿４"),
     [BTL_AREA_OMO2_5]   BTL_AREA_AUX(omo2_5, "エリア ＯＭＯ２＿５"),
     [BTL_AREA_OMO2_6]   BTL_AREA_AUX(omo2_6, "エリア ＯＭＯ２＿６"),
+    [BTL_AREA_RET]      BTL_AREA(ret, "Retro"),
 };
 
 void reset_battle_status(void) {

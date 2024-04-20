@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="3">
+	<PaletteList>
+		<Palette id="0" src="Default.png"/>
+		<Palette id="1" src="Blue.png"/>
+		<Palette id="2" src="White.png"/>
+		<Palette id="3" src="Hammer.png"/>
+		<Palette id="4" src="HammerWhite.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Still" palette="0" src="Still.png"/>
+		<Raster id="1" name="Step1" palette="0" src="Step1.png"/>
+		<Raster id="2" name="Step2" palette="0" src="Step2.png"/>
+		<Raster id="3" name="Step3" palette="0" src="Step3.png"/>
+		<Raster id="4" name="Hammer1" palette="4" src="Hammer1.png"/>
+		<Raster id="5" name="Hammer2" palette="4" src="Hammer2.png"/>
+		<Raster id="6" name="Hammer3" palette="4" src="Hammer3.png"/>
+		<Raster id="7" name="Hammer4" palette="4" src="Hammer4.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="OpenMouth">
+			<Component xyz="0,0,0">
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="1002"/>
+				<Command val="2"/>
+				<Command val="2002"/>
+			</Component>
+		</Animation>
+		<Animation name="Idle">
+			<Component xyz="0,0,0">
+				<Command val="1000"/>
+				<Command val="20"/>
+				<Command val="1003"/>
+				<Command val="20"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="HammerRotate">
+			<Component xyz="0,0,0">
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="FFF8"/>
+				<Command val="0"/>
+				<Command val="1004"/>
+				<Command val="6"/>
+				<Command val="1005"/>
+				<Command val="6"/>
+				<Command val="3000"/>
+				<Command val="0"/>
+				<Command val="FFF8"/>
+				<Command val="0"/>
+				<Command val="1006"/>
+				<Command val="6"/>
+				<Command val="1007"/>
+				<Command val="6"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>
