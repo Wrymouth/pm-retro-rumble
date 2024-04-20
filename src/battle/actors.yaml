@@ -2334,3 +2334,25 @@
     stepDelay: [ 30, 30 ]
     tattleCamOffset: [ 0, 0, 0 ]
     shadowOffset: 0
+- RetroBowser:
+    level: 1
+    nameMsg: MSG_EnemyName_Bowser
+    tattleMsg: MSG_Game_Goombario_Bowser_Tattle
+    walkSound: [ SOUND_NONE, SOUND_NONE ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_NONE
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0
+- RetroAxe:
+    level: 1
+    nameMsg: MSG_GameEnemies_Axe
+    tattleMsg: MSG_Game_Goombario_Axe_Tattle
+    walkSound: [ SOUND_NONE, SOUND_NONE ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_NONE
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0

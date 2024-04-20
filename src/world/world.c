@@ -865,6 +865,12 @@ MapConfig gv_maps[] = {
     { MAP(gv_01) },
 };
 
+/// Retro
+#include "area_ret/ret.h"
+MapConfig ret_maps[] = {
+    { MAP(ret_00) },
+};
+
 AreaConfig gAreas[] = {
     AREA(kmr, "クリむら"),  // kuri mura [kuribou village, Goomba Village]
     AREA(mac, "まち"),  // machi [town, Toad Town]
@@ -894,5 +900,6 @@ AreaConfig gAreas[] = {
     AREA(mgm, "ミニゲーム"),  // minige-mu [Minigames]
     AREA(gv, "ゲームオーバー"),  // ge-mu o-ba- [Game Over]
     AREA(tst, "テストマップ"),  // tesuto mappu [Test map]
+    AREA(ret, "Retro"),  // Retro map
     {},
 };

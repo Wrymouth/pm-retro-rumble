@@ -433,8 +433,16 @@ class TexImage:
     def add_bytes(self, tex_name: str, bytes: bytearray):
         pos = len(bytes)
 
-        # write name to header
-        name_bytes = self.img_name.encode("ascii")
+        # form raw name and write to header
+        raw_name = ""
+        if tex_name[:4] not in self.img_name:
+            raw_name += tex_name[:4]
+            
+        raw_name += self.img_name
+        
+        if self.raw_ext not in self.img_name:
+            raw_name += self.raw_ext
+        name_bytes = raw_name.encode("ascii")
         bytes += name_bytes
 
         # pad name out to 32 bytes

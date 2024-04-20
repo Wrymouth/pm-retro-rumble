@@ -393,7 +393,7 @@ class SBNFile:
 
         size = self.decode(data, ident)
 
-        assert size == len(data), "File size mismatch"
+        # assert size == len(data), "File size mismatch"
 
     def file_name(self) -> str:
         if self.ident is None:

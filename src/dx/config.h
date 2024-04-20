@@ -4,7 +4,7 @@
 /// Creates the version string that appears on the file select menu.
 /// Also used to sign save files created with this mod.
 /// WARNING: name must not exceed 27 characters!
-#define DX_MOD_NAME "New Mod"
+#define DX_MOD_NAME "Retro Rumble"
 #define DX_MOD_VER_MAJOR 1 /// Increase this when you make breaking changes to the savefile format (like reordering items)
 #define DX_MOD_VER_MINOR 0 /// Increase this when adding new features or other enchancements
 #define DX_MOD_VER_PATCH 0 /// Increase this when fixing bugs
@@ -29,7 +29,7 @@
 #define DX_SKIP_DEMO 1
 
 /// Map to load when starting a new game.
-#define NEW_GAME_MAP_ID "kmr_20"
+#define NEW_GAME_MAP_ID "tst_01"
 
 /// Entry to use when starting a new game.
 #define NEW_GAME_ENTRY_ID kmr_20_ENTRY_0
