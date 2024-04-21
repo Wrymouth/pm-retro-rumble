@@ -81,10 +81,16 @@ void clear_player_data(void) {
 
     evt_set_variable(NULL, GF_Tutorial_GotItem, TRUE);
 
+    playerData->partners[0].enabled = TRUE;
+    playerData->partners[0].level = PARTNER_RANK_NORMAL;
+    playerData->partners[0].unk_02[0] = 0;
+    playerData->partners[0].unk_02[1] = 0;
+    playerData->partners[0].unk_02[2] = 0;
+
     playerData->curPartner = PARTNER_GOOMBARIO;
 
-    for (i = 0; i < ARRAY_COUNT(playerData->partners); i++) {
-        playerData->partners[i].enabled = TRUE;
+    for (i = 1; i < ARRAY_COUNT(playerData->partners); i++) {
+        playerData->partners[i].enabled = FALSE;
         playerData->partners[i].level = PARTNER_RANK_NORMAL;
         playerData->partners[i].unk_02[0] = 0;
         playerData->partners[i].unk_02[1] = 0;

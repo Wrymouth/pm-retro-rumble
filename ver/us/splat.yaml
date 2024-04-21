@@ -14569,6 +14569,9 @@ segments:
     subsegments:
     - [auto, c, actor/retro_bowser]
     - [auto, c, actor/retro_axe]
+    - [auto, c, actor/retro_sonic]
+    - [auto, c, actor/retro_tails]
+    - [auto, c, actor/retro_knuckles]
     - [auto, c, stage/ret_00]
     - [auto, c, area]
   - name: ret_00

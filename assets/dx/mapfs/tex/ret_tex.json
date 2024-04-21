@@ -50,6 +50,56 @@
         "combine": "Multiply"
     },
     {
+        "name": "ret_curtaintif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "ret_curtainbottomtif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "ret_hillstif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Mirror",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "ret_cloudtif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Clamp",
+            "vwrap": "Clamp"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
+        "name": "ret_grasstif",
+        "main": {
+            "format": "CI4",
+            "hwrap": "Repeat",
+            "vwrap": "Repeat"
+        },
+        "filter": true,
+        "combine": "Multiply"
+    },
+    {
         "name": "ret_axetif",
         "main": {
             "format": "CI4",

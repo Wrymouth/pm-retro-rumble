@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="3">
+	<PaletteList>
+		<Palette id="0" src="Default.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Still" palette="0" src="Still.png"/>
+		<Raster id="1" name="Walk1" palette="0" src="Walk1.png"/>
+		<Raster id="2" name="Walk2" palette="0" src="Walk2.png"/>
+		<Raster id="3" name="Walk3" palette="0" src="Walk3.png"/>
+		<Raster id="4" name="Walk4" palette="0" src="Walk4.png"/>
+		<Raster id="5" name="Walk5" palette="0" src="Walk5.png"/>
+		<Raster id="6" name="Walk6" palette="0" src="Walk6.png"/>
+		<Raster id="7" name="Walk7" palette="0" src="Walk7.png"/>
+		<Raster id="8" name="Walk8" palette="0" src="Walk8.png"/>
+		<Raster id="9" name="SpinDash0" palette="0" src="SpinDash0.png"/>
+		<Raster id="A" name="SpinDash1" palette="0" src="SpinDash1.png"/>
+		<Raster id="B" name="SpinDash2" palette="0" src="SpinDash2.png"/>
+		<Raster id="C" name="SpinDash3" palette="0" src="SpinDash3.png"/>
+		<Raster id="D" name="SpinDash4" palette="0" src="SpinDash4.png"/>
+		<Raster id="E" name="SpinDash5" palette="0" src="SpinDash5.png"/>
+		<Raster id="F" name="Run1" palette="0" src="Run1.png"/>
+		<Raster id="10" name="Run2" palette="0" src="Run2.png"/>
+		<Raster id="11" name="Run3" palette="0" src="Run3.png"/>
+		<Raster id="12" name="SpinDust1" palette="0" src="SpinDust1.png"/>
+		<Raster id="13" name="SpinDust2" palette="0" src="SpinDust2.png"/>
+		<Raster id="14" name="SpinDust3" palette="0" src="SpinDust3.png"/>
+		<Raster id="15" name="SpinDust4" palette="0" src="SpinDust4.png"/>
+		<Raster id="16" name="SpinDust5" palette="0" src="SpinDust5.png"/>
+		<Raster id="17" name="SpinDust6" palette="0" src="SpinDust6.png"/>
+		<Raster id="18" name="SpinDust7" palette="0" src="SpinDust7.png"/>
+		<Raster id="19" name="Roll1" palette="0" src="Roll1.png"/>
+		<Raster id="1A" name="Roll2" palette="0" src="Roll2.png"/>
+		<Raster id="1B" name="Roll3" palette="0" src="Roll3.png"/>
+		<Raster id="1C" name="Roll4" palette="0" src="Roll4.png"/>
+		<Raster id="1D" name="Blink" palette="0" src="Blink.png"/>
+		<Raster id="1E" name="Roll5" palette="0" src="Roll5.png"/>
+		<Raster id="1F" name="Hurt1" palette="0" src="Hurt1.png"/>
+		<Raster id="20" name="Hurt2" palette="0" src="Hurt2.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Idle">
+			<Component xyz="0,0,0">
+				<Command val="1000"/>
+				<Command val="C8"/>
+				<Command val="101D"/>
+				<Command val="20"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Roll">
+			<Component xyz="0,0,0">
+				<Command val="1019"/>
+				<Command val="4"/>
+				<Command val="101E"/>
+				<Command val="4"/>
+				<Command val="101A"/>
+				<Command val="4"/>
+				<Command val="101E"/>
+				<Command val="4"/>
+				<Command val="101B"/>
+				<Command val="4"/>
+				<Command val="101E"/>
+				<Command val="4"/>
+				<Command val="101C"/>
+				<Command val="4"/>
+				<Command val="101E"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="SpinDash">
+			<Component xyz="0,0,0">
+				<Command val="100A"/>
+				<Command val="4"/>
+				<Command val="1009"/>
+				<Command val="4"/>
+				<Command val="100B"/>
+				<Command val="4"/>
+				<Command val="1009"/>
+				<Command val="4"/>
+				<Command val="100C"/>
+				<Command val="4"/>
+				<Command val="1009"/>
+				<Command val="4"/>
+				<Command val="100D"/>
+				<Command val="4"/>
+				<Command val="1009"/>
+				<Command val="4"/>
+				<Command val="100E"/>
+				<Command val="4"/>
+				<Command val="1009"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Comp 01" xyz="10,0,0">
+				<Command val="1012"/>
+				<Command val="4"/>
+				<Command val="1013"/>
+				<Command val="4"/>
+				<Command val="1014"/>
+				<Command val="4"/>
+				<Command val="1015"/>
+				<Command val="4"/>
+				<Command val="1016"/>
+				<Command val="4"/>
+				<Command val="1017"/>
+				<Command val="4"/>
+				<Command val="1018"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Walk">
+			<Component xyz="0,0,0">
+				<Command val="1001"/>
+				<Command val="4"/>
+				<Command val="1002"/>
+				<Command val="4"/>
+				<Command val="1003"/>
+				<Command val="4"/>
+				<Command val="1004"/>
+				<Command val="4"/>
+				<Command val="1005"/>
+				<Command val="4"/>
+				<Command val="1006"/>
+				<Command val="4"/>
+				<Command val="1007"/>
+				<Command val="4"/>
+				<Command val="1008"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Run">
+			<Component xyz="0,0,0">
+				<Command val="100F"/>
+				<Command val="4"/>
+				<Command val="1010"/>
+				<Command val="4"/>
+				<Command val="1011"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Hurt">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1020"/>
+				<Command val="8"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

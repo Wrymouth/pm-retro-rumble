@@ -236,5 +236,10 @@
         <Sprite name="RetroBowser"/>
         <Sprite name="RetroFireball"/>
         <Sprite name="RetroAxe"/>
+        <Sprite name="RetroSonic"/>
+        <Sprite name="RetroTails"/>
+        <Sprite name="RetroKnuckles"/>
+        <Sprite name="RetroEmerald"/>
+        <Sprite name="Mushroom"/>
     </Sprites>
 </Names>

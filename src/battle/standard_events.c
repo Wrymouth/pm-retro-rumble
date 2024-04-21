@@ -1141,6 +1141,7 @@ EvtScript EVS_Player_NoDamageHit = {
 };
 
 EvtScript EVS_ForceNextTarget = {
+    Return
     Call(GetOwnerID, LVarA)
     Call(CreateHomeTargetList, TARGET_FLAG_2 | TARGET_FLAG_PRIMARY_ONLY)
     Call(InitTargetIterator)
