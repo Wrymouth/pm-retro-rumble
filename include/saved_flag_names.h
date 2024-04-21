@@ -12,7 +12,7 @@ enum GameFlags {
     GF_StartedChapter8                          = GameFlag(0x008),
     GF_DemoSceneDone                            = GameFlag(0x009),
     GF_TattleWindowOpen                            = GameFlag(0x00A),
-    GF_Unused_EVT_0B                            = GameFlag(0x00B),
+    GF_ZoomedOnAxe                            = GameFlag(0x00B),
     GF_Unused_EVT_0C                            = GameFlag(0x00C),
     GF_Unused_EVT_0D                            = GameFlag(0x00D),
     GF_Unused_EVT_0E                            = GameFlag(0x00E),

@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="3">
+	<PaletteList>
+		<Palette id="0" src="Default.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Still" palette="0" src="Still.png"/>
+		<Raster id="1" name="Carry1" palette="0" src="Carry1.png"/>
+		<Raster id="2" name="Carry2" palette="0" src="Carry2.png"/>
+		<Raster id="3" name="TailSpin1" palette="0" src="TailSpin1.png"/>
+		<Raster id="4" name="TailSpin2" palette="0" src="TailSpin2.png"/>
+		<Raster id="5" name="TailRoll1" palette="0" src="TailRoll1.png"/>
+		<Raster id="6" name="TailRoll2" palette="0" src="TailRoll2.png"/>
+		<Raster id="7" name="TailRoll3" palette="0" src="TailRoll3.png"/>
+		<Raster id="8" name="TailRoll4" palette="0" src="TailRoll4.png"/>
+		<Raster id="9" name="Flying" palette="0" src="Flying.png"/>
+		<Raster id="A" name="Roll1" palette="0" src="Roll1.png"/>
+		<Raster id="B" name="Roll2" palette="0" src="Roll2.png"/>
+		<Raster id="C" name="Roll3" palette="0" src="Roll3.png"/>
+		<Raster id="D" name="Hurt" palette="0" src="Hurt.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Idle">
+			<Component xyz="0,0,0">
+				<Command val="1009"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Comp 01" xyz="4,0,-2">
+				<Command val="3000"/>
+				<Command val="FFFE"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="1003"/>
+				<Command val="4"/>
+				<Command val="3000"/>
+				<Command val="FFFE"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="1004"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Carry">
+			<Component xyz="0,0,0">
+				<Command val="1001"/>
+				<Command val="40"/>
+				<Command val="1002"/>
+				<Command val="40"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Comp 01" xyz="4,0,-2">
+				<Command val="3000"/>
+				<Command val="FFFE"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="1003"/>
+				<Command val="4"/>
+				<Command val="3000"/>
+				<Command val="FFFE"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="1004"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Roll">
+			<Component xyz="0,0,0">
+				<Command val="100A"/>
+				<Command val="4"/>
+				<Command val="100B"/>
+				<Command val="4"/>
+				<Command val="100C"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Comp 01" xyz="8,0,-2">
+				<Command val="3000"/>
+				<Command val="FFFE"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="1005"/>
+				<Command val="4"/>
+				<Command val="3000"/>
+				<Command val="FFFE"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="1006"/>
+				<Command val="4"/>
+				<Command val="1007"/>
+				<Command val="4"/>
+				<Command val="1008"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="RollDown">
+			<Component xyz="0,0,0">
+				<Command val="100A"/>
+				<Command val="4"/>
+				<Command val="100B"/>
+				<Command val="4"/>
+				<Command val="100C"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Comp 01" xyz="16,22,-2">
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="5A"/>
+				<Command val="1005"/>
+				<Command val="4"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="5A"/>
+				<Command val="1006"/>
+				<Command val="4"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="5A"/>
+				<Command val="1007"/>
+				<Command val="4"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="5A"/>
+				<Command val="1008"/>
+				<Command val="4"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="5A"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="RollUp">
+			<Component xyz="0,0,0">
+				<Command val="100A"/>
+				<Command val="4"/>
+				<Command val="100B"/>
+				<Command val="4"/>
+				<Command val="100C"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+			<Component name="Comp 01" xyz="-13,8,-2">
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="FFA6"/>
+				<Command val="1005"/>
+				<Command val="4"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="FFA6"/>
+				<Command val="1006"/>
+				<Command val="4"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="FFA6"/>
+				<Command val="1007"/>
+				<Command val="4"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="FFA6"/>
+				<Command val="1008"/>
+				<Command val="4"/>
+				<Command val="4000"/>
+				<Command val="0"/>
+				<Command val="5A"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Hurt">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="100D"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

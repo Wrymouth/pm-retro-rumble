@@ -143,7 +143,7 @@ ActorPartBlueprint N(ActorParts)[] = {
 };
 
 ActorBlueprint NAMESPACE = {
-    .flags = 0,
+    .flags = ACTOR_FLAG_NO_SHADOW,
     .type = ACTOR_TYPE_RETRO_BOWSER,
     .level = ACTOR_LEVEL_RETRO_BOWSER,
     .maxHP = 99,
@@ -331,6 +331,8 @@ EvtScript N(EVS_DoHammerAttack) = {
             Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER3, ACTOR_PART_FLAG_INVISIBLE, TRUE)
         EndThread
     Else
+        Sub(LVar0, 5)
+        Add(LVar1, 5)
         Thread
             Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER1, ACTOR_PART_FLAG_INVISIBLE, FALSE)
             Call(PlaySoundAtActor, ACTOR_SELF, SOUND_PARAKARRY_PREDIVE)

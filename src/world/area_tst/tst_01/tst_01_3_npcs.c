@@ -7,13 +7,22 @@ EvtScript N(EVS_NpcIdle_Fishmael) = {
     Call(DisablePlayerInput, TRUE)
     Wait(45)
     Call(ShowMessageAtScreenPos, MSG_Game_Credits, 160, 40)
-    Call(StartBossBattle, SONG_ANGEL_ISLAND)
+    Call(StartBossBattle, SONG_SMB1_BOWSER)
+    Return
+    End
+};
+
+EvtScript N(EVS_NpcDefeat_Fishmael) = {
+    Call(DisablePlayerInput, TRUE)
+    Call(ShowMessageAtScreenPos, MSG_Game_YouWin, 160, 40)
+    Call(GotoMap, "kmr_30", 0)
     Return
     End
 };
 
 EvtScript N(EVS_NpcInit_Fishmael) = {
     Call(BindNpcIdle, NPC_SELF, N(EVS_NpcIdle_Fishmael))
+    Call(BindNpcDefeat, NPC_SELF, N(EVS_NpcDefeat_Fishmael))
     Return
     End
 };

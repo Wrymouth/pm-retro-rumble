@@ -430,6 +430,7 @@ enum SongIDs {
     SONG_MARIO_BROS_HOUSE           = 0x00000094,
     SONG_INTRO_STORY                = 0x00000095,
     SONG_SMB1_BOWSER                = 0x00000096,
+    SONG_ANGEL_ISLAND              = 0x00000097,
 };
 
 enum Abilities {

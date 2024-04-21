@@ -2356,3 +2356,36 @@
     stepDelay: [ 30, 30 ]
     tattleCamOffset: [ 0, 0, 0 ]
     shadowOffset: 0
+- RetroSonic:
+    level: 3
+    nameMsg: MSG_GameEnemies_Sonic
+    tattleMsg: MSG_Game_Goombario_Sonic_Tattle
+    walkSound: [ SOUND_NONE, SOUND_NONE ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_NONE
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0
+- RetroTails:
+    level: 3
+    nameMsg: MSG_GameEnemies_Tails
+    tattleMsg: MSG_Game_Goombario_Tails_Tattle
+    walkSound: [ SOUND_NONE, SOUND_NONE ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_NONE
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0
+- RetroKnuckles:
+    level: 3
+    nameMsg: MSG_GameEnemies_Knuckles
+    tattleMsg: MSG_Game_Goombario_Knuckles_Tattle
+    walkSound: [ SOUND_NONE, SOUND_NONE ]
+    flySound: [ SOUND_NONE, SOUND_NONE ]
+    jumpSound: SOUND_NONE
+    hurtSound: SOUND_NONE
+    stepDelay: [ 30, 30 ]
+    tattleCamOffset: [ 0, 0, 0 ]
+    shadowOffset: 0

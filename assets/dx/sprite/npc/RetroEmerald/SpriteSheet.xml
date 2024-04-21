@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="3">
+	<PaletteList>
+		<Palette id="0" src="Blue.png"/>
+		<Palette id="1" src="Green.png"/>
+		<Palette id="2" src="Ice.png"/>
+		<Palette id="3" src="Pink.png"/>
+		<Palette id="4" src="Red.png"/>
+		<Palette id="5" src="White.png"/>
+		<Palette id="6" src="Yellow.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Blue" palette="0" src="Blue.png"/>
+		<Raster id="1" name="Green" palette="1" src="Green.png"/>
+		<Raster id="2" name="Ice" palette="2" src="Ice.png"/>
+		<Raster id="3" name="Pink" palette="3" src="Pink.png"/>
+		<Raster id="4" name="Red" palette="4" src="Red.png"/>
+		<Raster id="5" name="White" palette="5" src="White.png"/>
+		<Raster id="6" name="Yellow" palette="6" src="Yellow.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

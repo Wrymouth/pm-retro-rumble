@@ -56,7 +56,6 @@ s32 N(StatusTable)[] = {
 ActorPartBlueprint N(ActorParts)[] = {
     {
         .flags = ACTOR_PART_FLAG_NO_TARGET,
-        // .flags = 0,
         .index = PRT_MAIN,
         .posOffset = { 0, 0, 0 },
         .targetOffset = { 0, 30 },
@@ -73,7 +72,7 @@ ActorBlueprint NAMESPACE = {
     .flags = ACTOR_FLAG_NO_HEALTH_BAR,
     .type = ACTOR_TYPE_RETRO_AXE,
     .level = ACTOR_LEVEL_RETRO_AXE,
-    .maxHP = 5,
+    .maxHP = 3,
     .partCount = ARRAY_COUNT(N(ActorParts)),
     .partsData = N(ActorParts),
     .initScript = &N(EVS_Init),
@@ -104,6 +103,32 @@ s32 N(DefaultAnims)[] = {
     STATUS_KEY_FEAR,      ANIM_RetroAxe_Still,
     STATUS_END,
 };
+
+API_CALLABLE(N(SetNextBattleStats)) {
+    PlayerData* playerData = &gPlayerData;
+    s32 i;
+
+    playerData->curHP = 20;
+    playerData->curMaxHP = 20;
+    playerData->hardMaxHP = 20;
+    playerData->bootsLevel = 1;
+    playerData->hammerLevel = 2;
+    playerData->maxStarPower = 3;
+    playerData->starPower = playerData->maxStarPower * SP_PER_BAR;
+
+    for (i = 0; i < ARRAY_COUNT(playerData->partners) - 3; i++) {
+        if (i == PARTNER_GOOMPA) {
+            continue;
+        }
+        playerData->partners[i].enabled = TRUE;
+        playerData->partners[i].level = PARTNER_RANK_SUPER;
+        playerData->partners[i].unk_02[0] = 0;
+        playerData->partners[i].unk_02[1] = 0;
+        playerData->partners[i].unk_02[2] = 0;
+    }
+
+    return ApiStatus_DONE2;
+}
 
 #include "common/battle/SetAbsoluteStatusOffsets.inc.c"
 
@@ -155,14 +180,64 @@ EvtScript N(EVS_HandleEvent) = {
             ExecWait(EVS_Enemy_Death)
             Return
         CaseEq(EVENT_DEATH)
-            SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, ANIM_RetroAxe_Still)
-            ExecWait(EVS_Enemy_Hit)
-            Wait(10)
-            SetConst(LVar0, PRT_MAIN)
-            SetConst(LVar1, ANIM_RetroAxe_Still)
-            ExecWait(EVS_Enemy_Death)
+            // do the bridge thing
+            Set(LVar0, 0)
+            Call(PlaySound, SOUND_LOOP_TRD_RAISE_STAIRS)
+            Loop(100)
+                Sub(LVar0, 2)
+                Call(TranslateGroup, GROUP_Bridge, LVar0, 0, 0)
+                Wait(1)
+            EndLoop
+            Call(StopSound, SOUND_LOOP_TRD_RAISE_STAIRS)
+            Call(SetActorJumpGravity, ACTOR_ENEMY0, Float(1.0))
+            Call(GetActorPos, ACTOR_ENEMY0, LVar0, LVar1, LVar2)
+            Call(SetGoalPos, ACTOR_ENEMY0, LVar0, -200, LVar2)
+            Call(PlaySoundAtActor, ACTOR_ENEMY0, SOUND_FALL_QUICK)
+            Call(JumpToGoal, ACTOR_ENEMY0, 30, FALSE, FALSE, FALSE)
+            Thread
+                Loop(8)
+                    Call(PlaySound, SOUND_BOMB_BLAST)
+                    Wait(8)
+                EndLoop
+                Call(PlaySound, SOUND_ACTOR_DEATH)
+            EndThread
+
+            Set(LVar0, 260)
+            Loop(130)
+                Sub(LVar0, 2)
+                Call(TranslateGroup, GROUP_CurtainGroup, 0, LVar0, 0)
+                Wait(1)
+            EndLoop
+
+            Call(TranslateGroup, GROUP_BowserArena, 0, 1000, 0)
+            Call(TranslateGroup, GROUP_AngelIsland, -700, 0, 0)
+
+            Thread 
+                Set(LVar0, 0)
+                Loop(130)
+                    Add(LVar0, 2)
+                    Call(TranslateGroup, GROUP_CurtainGroup, 0, LVar0, 0)
+                    Wait(1)
+                EndLoop
+            EndThread
+            
+            Call(SetActorFlagBits, ACTOR_ENEMY1, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+            Call(SetActorFlagBits, ACTOR_ENEMY2, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+            Call(SetActorFlagBits, ACTOR_ENEMY3, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+            Call(SetPartFlagBits, ACTOR_ENEMY1, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+            Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+            Call(SetPartFlagBits, ACTOR_ENEMY3, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+            
+            Wait(70)
+            
+            Call(RemoveActor, ACTOR_ENEMY0)
+            Call(RemoveActor, ACTOR_SELF)
+            
+
+            Call(SetMusicTrack, 0, SONG_ANGEL_ISLAND, 0, 8)
+            Call(N(SetNextBattleStats))
             Return
+
         CaseEq(EVENT_RECOVER_STATUS)
             // nothing
         CaseEq(EVENT_SCARE_AWAY)
@@ -188,14 +263,17 @@ EvtScript N(EVS_TakeTurn) = {
     // Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Call(GetActorVar, ACTOR_SELF, AVar_TurnsLeft, LVar0)
     IfFalse(LVar0)
-        // Call(AddBattleCamZoom, 100)
-        // Call(MoveBattleCamOver, 30)
-        Call(UseBattleCamPreset, BTL_CAM_PRESET_14)
-        Call(BattleCamTargetActor, ACTOR_SELF)
-        Call(PlaySound, SOUND_QUIZ_NEXT_QUESTION)
-        Wait(80)
-        Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
-        Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+        IfFalse(GF_ZoomedOnAxe)
+            Set(GF_ZoomedOnAxe, TRUE)
+            Call(UseBattleCamPreset, BTL_CAM_PRESET_14)
+            Call(BattleCamTargetActor, ACTOR_SELF)
+            Call(AddBattleCamZoom, 100)
+            Call(MoveBattleCamOver, 30)
+            Call(PlaySound, SOUND_QUIZ_NEXT_QUESTION)
+            Wait(80)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+            Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
+        EndIf
     Else
         Sub(LVar0, 1)
         Call(SetActorVar, ACTOR_SELF, AVar_TurnsLeft, LVar0)
