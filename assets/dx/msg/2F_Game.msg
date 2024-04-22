@@ -25,7 +25,7 @@
 	[Style right]It's an axe. Maybe we can use it[BR]
 	to destroy the bridge?[BR]
 	[Wait][Next]
-	Max HP: 5, Attack Power: 0[BR]
+	Max HP: 3, Attack Power: 0[BR]
 	Defense Power: 0[BR]
 	Let's give it a shot, okay?[Wait][End]
 }

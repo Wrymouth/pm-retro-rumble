@@ -51,10 +51,10 @@
 		</Animation>
 		<Animation name="Carry">
 			<Component xyz="0,0,0">
-				<Command val="1001"/>
-				<Command val="40"/>
 				<Command val="1002"/>
-				<Command val="40"/>
+				<Command val="30"/>
+				<Command val="1001"/>
+				<Command val="30"/>
 				<Command val="2000"/>
 			</Component>
 			<Component name="Comp 01" xyz="4,0,-2">

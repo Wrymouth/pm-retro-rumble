@@ -148,6 +148,7 @@ EvtScript N(EVS_HandleEvent) = {
         CaseOrEq(EVENT_ZERO_DAMAGE)
         CaseOrEq(EVENT_FLIP_TRIGGER)
         CaseOrEq(EVENT_BURN_HIT)
+            Set(GF_ZoomedOnAxe, TRUE)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_RetroAxe_Still)
             ExecWait(EVS_Enemy_Hit)
@@ -221,12 +222,16 @@ EvtScript N(EVS_HandleEvent) = {
                 EndLoop
             EndThread
             
+            Add(GB_BattlePhase, 1)
             Call(SetActorFlagBits, ACTOR_ENEMY1, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
             Call(SetActorFlagBits, ACTOR_ENEMY2, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
             Call(SetActorFlagBits, ACTOR_ENEMY3, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
             Call(SetPartFlagBits, ACTOR_ENEMY1, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
             Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
             Call(SetPartFlagBits, ACTOR_ENEMY3, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+            Call(SetPartFlagBits, ACTOR_ENEMY1, PRT_MAIN, ACTOR_PART_FLAG_PRIMARY_TARGET, TRUE)
+            Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_PRIMARY_TARGET, TRUE)
+            Call(SetPartFlagBits, ACTOR_ENEMY3, PRT_MAIN, ACTOR_PART_FLAG_PRIMARY_TARGET, TRUE)
             
             Wait(70)
             
@@ -256,15 +261,9 @@ EvtScript N(EVS_HandleEvent) = {
 };
 
 EvtScript N(EVS_TakeTurn) = {
-    // Call(UseIdleAnimation, ACTOR_SELF, FALSE)
-    // Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
-    // Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
-    // Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    // Call(UseIdleAnimation, ACTOR_SELF, TRUE)
     Call(GetActorVar, ACTOR_SELF, AVar_TurnsLeft, LVar0)
     IfFalse(LVar0)
         IfFalse(GF_ZoomedOnAxe)
-            Set(GF_ZoomedOnAxe, TRUE)
             Call(UseBattleCamPreset, BTL_CAM_PRESET_14)
             Call(BattleCamTargetActor, ACTOR_SELF)
             Call(AddBattleCamZoom, 100)
@@ -272,6 +271,7 @@ EvtScript N(EVS_TakeTurn) = {
             Call(PlaySound, SOUND_QUIZ_NEXT_QUESTION)
             Wait(80)
             Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, FALSE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_PRIMARY_TARGET, TRUE)
             Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_NO_HEALTH_BAR, FALSE)
         EndIf
     Else
