@@ -47,7 +47,7 @@ enum GameBytes {
     GB_MAC01_Rowf_Badge2                    = GameByte(0x02B),
     GB_MAC01_Rowf_NumBadges                 = GameByte(0x02C),
     GB_MAC03_LilOinkCapsuleState            = GameByte(0x02D),
-    GB_Unused_MAC_13                        = GameByte(0x02E),
+    GB_BattlePhase                          = GameByte(0x02E),
     GB_Unused_MAC_14                        = GameByte(0x02F),
     GB_Unused_MAC_15                        = GameByte(0x030),
     GB_Unused_MAC_16                        = GameByte(0x031),

@@ -1,6 +1,7 @@
 #include "../area.h"
 
 #include "sprite/npc/RetroSonic.h"
+#include "sprite/npc/RetroEmerald.h"
 
 #define NAMESPACE A(retro_sonic)
 
@@ -13,20 +14,28 @@ extern EvtScript N(EVS_HandlePhase);
 
 enum N(ActorPartIDs) {
     PRT_MAIN            = 1,
+    PRT_EMERALD         = 2,
 };
 
 enum N(ActorVars) {
-    AVar_TurnsLeft    = 0,
+    AVar_EmeraldsCollected    = 0,
 };
 
 enum N(ActorParams) {
-    DMG_HAMMER   = 1,
+    DMG_SPIN   = 3,
+    DMG_JUMP   = 3,
 };
 
 s32 N(DefenseTable)[] = {
     ELEMENT_NORMAL,  0,
     ELEMENT_END,
 };
+
+s32 N(SuperDefenseTable)[] = {
+    ELEMENT_NORMAL,  99,
+    ELEMENT_END,
+};
+
 
 s32 N(StatusTable)[] = {
     STATUS_KEY_NORMAL,              0,
@@ -53,6 +62,19 @@ s32 N(StatusTable)[] = {
     STATUS_END,
 };
 
+s32 N(EmeraldAnims)[] = {
+    STATUS_KEY_NORMAL,    ANIM_RetroEmerald_Blue_Blue,
+    STATUS_KEY_STONE,     ANIM_RetroEmerald_Blue_Blue,
+    STATUS_KEY_SLEEP,     ANIM_RetroEmerald_Blue_Blue,
+    STATUS_KEY_POISON,    ANIM_RetroEmerald_Blue_Blue,
+    STATUS_KEY_STOP,      ANIM_RetroEmerald_Blue_Blue,
+    STATUS_KEY_STATIC,    ANIM_RetroEmerald_Blue_Blue,
+    STATUS_KEY_PARALYZE,  ANIM_RetroEmerald_Blue_Blue,
+    STATUS_KEY_DIZZY,     ANIM_RetroEmerald_Blue_Blue,
+    STATUS_KEY_FEAR,      ANIM_RetroEmerald_Blue_Blue,
+    STATUS_END,
+};
+
 ActorPartBlueprint N(ActorParts)[] = {
     {
         .flags = 0,
@@ -61,6 +83,18 @@ ActorPartBlueprint N(ActorParts)[] = {
         .targetOffset = { 0, 30 },
         .opacity = 255,
         .idleAnimations = N(DefaultAnims),
+        .defenseTable = N(DefenseTable),
+        .eventFlags = 0,
+        .elementImmunityFlags = 0,
+        .projectileTargetOffset = { 1, 7 },
+    },
+    {
+        .flags = ACTOR_PART_FLAG_INVISIBLE | ACTOR_PART_FLAG_NO_DECORATIONS | ACTOR_PART_FLAG_NO_TARGET | ACTOR_PART_FLAG_USE_ABSOLUTE_POSITION,
+        .index = PRT_EMERALD,
+        .posOffset = { 0, 0, 0 },
+        .targetOffset = { 0, 30 },
+        .opacity = 255,
+        .idleAnimations = N(EmeraldAnims),
         .defenseTable = N(DefenseTable),
         .eventFlags = 0,
         .elementImmunityFlags = 0,
@@ -179,21 +213,86 @@ EvtScript N(EVS_HandleEvent) = {
     End
 };
 
-EvtScript N(EVS_TakeTurn) = {
+EvtScript N(EVS_SpinDashAttack) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
-    Call(GetActorVar, ACTOR_SELF, AVar_TurnsLeft, LVar0)
+    Return
+    End
+};
+
+EvtScript N(EVS_JumpAttack) = {
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_TransformSuper) = {
+    Call(SetDefenseTable, ACTOR_SELF, PRT_MAIN, Ref(N(SuperDefenseTable)))
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_DAMAGE_IMMUNE, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_GiveEmerald) = {
+    Call(GetPartPos, ACTOR_SELF, PRT_MAIN, LVar0, LVar1, LVar2)
+    Add(LVar1, 90)
+    Call(SetPartPos, ACTOR_SELF, PRT_EMERALD, LVar0, LVar1, LVar2)
+    Call(GetActorVar, ACTOR_SELF, AVar_EmeraldsCollected, LVarA)
+    IfEq(LVarA, 7)
+        Return
+    EndIf
+    Switch(LVarA)
+        CaseEq(0)
+            Call(SetAnimation, ACTOR_SELF, PRT_EMERALD, ANIM_RetroEmerald_Blue)
+        CaseEq(1)
+            Call(SetAnimation, ACTOR_SELF, PRT_EMERALD, ANIM_RetroEmerald_Green)
+        CaseEq(2)
+            Call(SetAnimation, ACTOR_SELF, PRT_EMERALD, ANIM_RetroEmerald_Ice)
+        CaseEq(3)
+            Call(SetAnimation, ACTOR_SELF, PRT_EMERALD, ANIM_RetroEmerald_Pink)
+        CaseEq(4)
+            Call(SetAnimation, ACTOR_SELF, PRT_EMERALD, ANIM_RetroEmerald_Red)
+        CaseEq(5)
+            Call(SetAnimation, ACTOR_SELF, PRT_EMERALD, ANIM_RetroEmerald_White)
+        CaseEq(6)
+            Call(SetAnimation, ACTOR_SELF, PRT_EMERALD, ANIM_RetroEmerald_Yellow)
+            ExecWait(N(EVS_TransformSuper))
+    EndSwitch
+    Add(LVarA, 1)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_EMERALD, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    Wait(30)
+    Call(GetPartPos, ACTOR_SELF, PRT_MAIN, LVar0, LVar1, LVar2)
+    Call(FlyPartTo, ACTOR_SELF, PRT_EMERALD, LVar0, LVar1, LVar2, 30, 0, 0)
+    Call(SetActorVar, ACTOR_SELF, AVar_EmeraldsCollected, LVarA)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_EMERALD, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_TakeTurn) = {
+    IfFalse(GB_BattlePhase)
+        Return
+    EndIf
+    ExecWait(N(EVS_JumpAttack))
+
+    ExecWait(N(EVS_GiveEmerald))
+
     Return
     End
 };
 
 EvtScript N(EVS_Init) = {
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
-    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
-    Call(SetActorScale, ACTOR_SELF, Float(1.5), Float(1.5), Float(1.5))
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    Call(SetPartScale, ACTOR_SELF, PRT_MAIN, Float(1.5), Float(1.5), Float(1.5))
+    Call(SetPartScale, ACTOR_SELF, PRT_EMERALD, Float(0.5), Float(0.5), Float(0.5))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))

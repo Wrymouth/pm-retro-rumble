@@ -16,7 +16,7 @@ enum N(ActorPartIDs) {
 };
 
 enum N(ActorVars) {
-    AVar_TurnsLeft    = 0,
+    AVar_AttackDamageAdd    = 0,
 };
 
 enum N(ActorParams) {
@@ -179,20 +179,60 @@ EvtScript N(EVS_HandleEvent) = {
     End
 };
 
-EvtScript N(EVS_TakeTurn) = {
+EvtScript N(EVS_JumpAttack) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
     Call(UseIdleAnimation, ACTOR_SELF, TRUE)
-    Call(GetActorVar, ACTOR_SELF, AVar_TurnsLeft, LVar0)
+    Return
+    End
+};
+
+EvtScript N(EVS_GlideAttack) = {
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_ChargeAttack) = {
+    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
+    Call(SetTargetActor, ACTOR_SELF, ACTOR_SELF)
+
+    Call(UseBattleCamPreset, BTL_CAM_PRESET_14)
+    Call(BattleCamTargetActor, ACTOR_SELF)
+    Call(MoveBattleCamOver, 20)
+    Wait(20)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_POWER_UP)
+    Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+    Add(LVar1, 10)
+    PlayEffect(EFFECT_ENERGY_IN_OUT, 6, LVar0, LVar1, LVar2, Float(1.0), 45, 0)
+    Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+    Call(MoveBattleCamOver, 20)
+
+    Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
+    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Return
+    End
+};
+
+EvtScript N(EVS_TakeTurn) = {
+    IfFalse(GB_BattlePhase)
+        Return
+    EndIf
+    ExecWait(N(EVS_ChargeAttack))
     Return
     End
 };
 
 EvtScript N(EVS_Init) = {
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
-    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
     Call(SetActorScale, ACTOR_SELF, Float(1.5), Float(1.5), Float(1.5))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))

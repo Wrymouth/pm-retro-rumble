@@ -377,6 +377,7 @@ EvtScript N(EVS_TakeTurn) = {
 };
 
 EvtScript N(EVS_Init) = {
+    Set(GB_BattlePhase, 1)
     Call(SetActorScale, ACTOR_SELF, Float(1.1), Float(1.1), Float(1.1))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))
