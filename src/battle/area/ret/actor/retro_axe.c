@@ -108,9 +108,14 @@ API_CALLABLE(N(SetNextBattleStats)) {
     PlayerData* playerData = &gPlayerData;
     s32 i;
 
-    playerData->curHP = 20;
+    s16 items[] = {ITEM_MAPLE_SHROOM, ITEM_SUPER_SHROOM, ITEM_SUPER_SHROOM, ITEM_HONEY_SYRUP, ITEM_HONEY_SYRUP, ITEM_SNOWMAN_DOLL, ITEM_NONE, ITEM_NONE};
+    s16 badges[] = {ITEM_POWER_RUSH, ITEM_DAMAGE_DODGE_A, ITEM_S_JUMP_CHG, ITEM_MULTIBOUNCE, ITEM_POWER_SMASH, ITEM_HAMMER_THROW, ITEM_HAPPY_FLOWER_A, ITEM_HAPPY_FLOWER_B};
+
     playerData->curMaxHP = 20;
     playerData->hardMaxHP = 20;
+    playerData->curFP = 10;
+    playerData->curMaxFP = 10;
+    playerData->hardMaxFP = 10;
     playerData->bootsLevel = 1;
     playerData->hammerLevel = 2;
     playerData->maxStarPower = 3;
@@ -126,6 +131,14 @@ API_CALLABLE(N(SetNextBattleStats)) {
         playerData->partners[i].unk_02[1] = 0;
         playerData->partners[i].unk_02[2] = 0;
     }
+
+    for (s32 i = 0; i < ARRAY_COUNT(items); i++)
+    {
+        playerData->invItems[i] = items[i];
+        playerData->badges[i] = badges[i];
+        playerData->equippedBadges[i] = badges[i];
+    }
+    
 
     return ApiStatus_DONE2;
 }
@@ -203,6 +216,9 @@ EvtScript N(EVS_HandleEvent) = {
                 Call(PlaySound, SOUND_ACTOR_DEATH)
             EndThread
 
+
+            Call(PlaySound, SOUND_AUDIENCE_CHEER)
+            Call(SetMusicTrack, 0, SONG_LEVEL_UP, 0, 8)
             Set(LVar0, 260)
             Loop(130)
                 Sub(LVar0, 2)
@@ -210,9 +226,12 @@ EvtScript N(EVS_HandleEvent) = {
                 Wait(1)
             EndLoop
 
+
             Call(TranslateGroup, GROUP_BowserArena, 0, 1000, 0)
             Call(TranslateGroup, GROUP_AngelIsland, -700, 0, 0)
+            Call(ShowMessageAtScreenPos, MSG_Game_SonicIntro, 160, 40)
 
+            Call(PlaySound, SOUND_AUDIENCE_CHEER)
             Thread 
                 Set(LVar0, 0)
                 Loop(130)
@@ -233,13 +252,16 @@ EvtScript N(EVS_HandleEvent) = {
             Call(SetPartFlagBits, ACTOR_ENEMY2, PRT_MAIN, ACTOR_PART_FLAG_PRIMARY_TARGET, TRUE)
             Call(SetPartFlagBits, ACTOR_ENEMY3, PRT_MAIN, ACTOR_PART_FLAG_PRIMARY_TARGET, TRUE)
             
+            Thread
+                Wait(30)
+                Call(SetMusicTrack, 0, SONG_ANGEL_ISLAND, 0, 8)
+            EndThread
             Wait(70)
             
             Call(RemoveActor, ACTOR_ENEMY0)
             Call(RemoveActor, ACTOR_SELF)
             
 
-            Call(SetMusicTrack, 0, SONG_ANGEL_ISLAND, 0, 8)
             Call(N(SetNextBattleStats))
             Return
 

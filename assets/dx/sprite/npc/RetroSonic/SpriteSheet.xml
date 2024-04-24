@@ -2,6 +2,8 @@
 <SpriteSheet maxComponents="1" paletteGroups="3">
 	<PaletteList>
 		<Palette id="0" src="Default.png"/>
+		<Palette id="1" src="Transform.png"/>
+		<Palette id="2" src="Super.png"/>
 	</PaletteList>
 	<RasterList>
 		<Raster id="0" name="Still" palette="0" src="Still.png"/>
@@ -37,6 +39,9 @@
 		<Raster id="1E" name="Roll5" palette="0" src="Roll5.png"/>
 		<Raster id="1F" name="Hurt1" palette="0" src="Hurt1.png"/>
 		<Raster id="20" name="Hurt2" palette="0" src="Hurt2.png"/>
+		<Raster id="21" name="SuperStill" palette="2" src="SuperStill.png"/>
+		<Raster id="22" name="SuperDash" palette="2" src="SuperDash.png"/>
+		<Raster id="23" name="Transform" palette="1" src="Transform.png"/>
 	</RasterList>
 	<AnimationList>
 		<Animation name="Still">
@@ -152,6 +157,27 @@
 		<Animation name="Hurt">
 			<Component name="Comp_0" xyz="0,0,0">
 				<Command val="1020"/>
+				<Command val="8"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Transform">
+			<Component xyz="0,0,0">
+				<Command val="1023"/>
+				<Command val="8"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="SuperIdle">
+			<Component xyz="0,0,0">
+				<Command val="1021"/>
+				<Command val="8"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="SuperDash">
+			<Component xyz="0,0,0">
+				<Command val="1022"/>
 				<Command val="8"/>
 				<Command val="2000"/>
 			</Component>

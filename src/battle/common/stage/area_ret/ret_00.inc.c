@@ -5,6 +5,10 @@
 EvtScript N(EVS_PreBattle) = {
     Call(SetSpriteShading, SHADING_NONE)
     Call(SetCamBGColor, CAM_BATTLE, 0, 0, 0)
+    Thread
+        Wait(5)
+        Call(PlaySound, SOUND_AUDIENCE_CHEER)
+    EndThread
     Set(LVar0, 0)
     Loop(130)
         Add(LVar0, 2)

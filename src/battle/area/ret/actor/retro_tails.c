@@ -23,9 +23,9 @@ enum N(ActorVars) {
 };
 
 enum N(ActorParams) {
-    DMG_CARRY   = 4,
+    DMG_CARRY   = 3,
     DMG_JUMP   = 4,
-    AMT_HEAL   = 10,
+    AMT_HEAL   = 5,
 };
 
 s32 N(DefenseTable)[] = {
@@ -36,7 +36,7 @@ s32 N(DefenseTable)[] = {
 s32 N(StatusTable)[] = {
     STATUS_KEY_NORMAL,              0,
     STATUS_KEY_DEFAULT,             0,
-    STATUS_KEY_SLEEP,               0,
+    STATUS_KEY_SLEEP,              40,
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
@@ -210,8 +210,33 @@ EvtScript N(EVS_HandleEvent) = {
 };
 
 API_CALLABLE(N(DetermineAttackOdds)) {
-    evt_set_variable(script, LVar1, 33);
-    evt_set_variable(script, LVar2, 66);
+    Actor* sonic;
+    Actor* knuckles;
+    s16 sonicHp;
+    s16 knucklesHp;
+
+    sonicHp = 0;
+    knucklesHp = 0;
+
+    if (!evt_get_variable(script, GF_SonicDead)) {
+        sonic = get_actor(ACTOR_ENEMY1);
+        sonicHp = sonic->curHP;
+    }
+    if (!evt_get_variable(script, GF_KnucklesDead)) {
+        knuckles = get_actor(ACTOR_ENEMY3);
+        knucklesHp = knuckles->curHP;
+    }
+
+    if (evt_get_variable(script, GF_SonicDead) && evt_get_variable(script, GF_KnucklesDead)) {
+        evt_set_variable(script, LVar1, 50);
+        evt_set_variable(script, LVar2, 100);
+    } else if (knucklesHp + sonicHp > 25 ) {
+        evt_set_variable(script, LVar1, 40);
+        evt_set_variable(script, LVar2, 80);
+    } else {
+        evt_set_variable(script, LVar1, 33);
+        evt_set_variable(script, LVar2, 66);
+    }
     return ApiStatus_DONE2;
 }
 
@@ -279,11 +304,15 @@ EvtScript N(EVS_Heal) = {
     Call(UseIdleAnimation, ACTOR_SELF, FALSE)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
 
-    Set(LVarC, ACTOR_ENEMY1)
-    ExecWait(N(EVS_HealAlly))
+    IfFalse(GF_SonicDead)
+        Set(LVarC, ACTOR_ENEMY1)
+        ExecWait(N(EVS_HealAlly))
+    EndIf
 
-    Set(LVarC, ACTOR_ENEMY3)
-    ExecWait(N(EVS_HealAlly))
+    IfFalse(GF_KnucklesDead)
+        Set(LVarC, ACTOR_ENEMY3)
+        ExecWait(N(EVS_HealAlly))
+    EndIf
 
     Call(SetGoalToHome, ACTOR_SELF)
     Call(FlyToGoal, ACTOR_SELF, 0, 0, EASING_COS_IN_OUT)
@@ -360,7 +389,7 @@ EvtScript N(EVS_CarryAttack) = {
 };
 
 EvtScript N(EVS_TakeTurn) = {
-    IfFalse(GB_BattlePhase)
+    IfNe(GB_BattlePhase, 2)
         Return
     EndIf
     Call(N(DetermineAttackOdds)) // returns in lvar1, lvar2
@@ -379,8 +408,8 @@ EvtScript N(EVS_TakeTurn) = {
 };
 
 EvtScript N(EVS_Init) = {
-    // Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
-    // Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
     Call(SetActorScale, ACTOR_SELF, Float(1.5), Float(1.5), Float(1.5))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))

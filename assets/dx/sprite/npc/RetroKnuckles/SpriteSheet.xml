@@ -6,6 +6,20 @@
 	<RasterList>
 		<Raster id="0" name="Still" palette="0" src="Still.png"/>
 		<Raster id="1" name="Hurt" palette="0" src="Hurt.png"/>
+		<Raster id="2" name="Glide" palette="0" src="Glide.png"/>
+		<Raster id="3" name="Walk1" palette="0" src="Walk1.png"/>
+		<Raster id="4" name="Walk2" palette="0" src="Walk2.png"/>
+		<Raster id="5" name="Walk3" palette="0" src="Walk3.png"/>
+		<Raster id="6" name="Walk4" palette="0" src="Walk4.png"/>
+		<Raster id="7" name="Walk5" palette="0" src="Walk5.png"/>
+		<Raster id="8" name="Walk6" palette="0" src="Walk6.png"/>
+		<Raster id="9" name="Walk7" palette="0" src="Walk7.png"/>
+		<Raster id="A" name="Walk8" palette="0" src="Walk8.png"/>
+		<Raster id="B" name="Roll0" palette="0" src="Roll0.png"/>
+		<Raster id="C" name="Roll1" palette="0" src="Roll1.png"/>
+		<Raster id="D" name="Roll2" palette="0" src="Roll2.png"/>
+		<Raster id="E" name="Roll3" palette="0" src="Roll3.png"/>
+		<Raster id="F" name="Roll4" palette="0" src="Roll4.png"/>
 	</RasterList>
 	<AnimationList>
 		<Animation name="Still">
@@ -26,6 +40,54 @@
 			<Component xyz="0,0,0">
 				<Command val="1001"/>
 				<Command val="8"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Glide">
+			<Component xyz="0,0,0">
+				<Command val="1002"/>
+				<Command val="8"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Walk">
+			<Component xyz="0,0,0">
+				<Command val="1003"/>
+				<Command val="4"/>
+				<Command val="1004"/>
+				<Command val="4"/>
+				<Command val="1005"/>
+				<Command val="4"/>
+				<Command val="1006"/>
+				<Command val="4"/>
+				<Command val="1007"/>
+				<Command val="4"/>
+				<Command val="1008"/>
+				<Command val="4"/>
+				<Command val="1009"/>
+				<Command val="4"/>
+				<Command val="100A"/>
+				<Command val="4"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Roll">
+			<Component xyz="0,0,0">
+				<Command val="100C"/>
+				<Command val="4"/>
+				<Command val="100B"/>
+				<Command val="4"/>
+				<Command val="100D"/>
+				<Command val="4"/>
+				<Command val="100B"/>
+				<Command val="4"/>
+				<Command val="100E"/>
+				<Command val="4"/>
+				<Command val="100B"/>
+				<Command val="4"/>
+				<Command val="100F"/>
+				<Command val="4"/>
+				<Command val="100B"/>
 				<Command val="2000"/>
 			</Component>
 		</Animation>

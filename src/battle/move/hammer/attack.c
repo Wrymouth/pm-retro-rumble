@@ -27,7 +27,7 @@ EvtScript N(EVS_UseMove) = {
         CaseEq(2)
             Set(LVarD, 45)
             Set(LVarE, 3)
-            Set(LVarF, 6)
+            Set(LVarF, 5)
             ExecWait(N(EVS_UseMove_Impl))
     EndSwitch
     Return

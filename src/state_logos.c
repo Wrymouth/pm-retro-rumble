@@ -134,22 +134,6 @@ void state_step_logos(void) {
             set_game_mode(GAME_MODE_TITLE_SCREEN);
         }
     } else {
-        if ((gGameStatusPtr->startupState == LOGOS_STATE_N64_HOLD
-            || gGameStatusPtr->startupState == LOGOS_STATE_N64_FADE_OUT
-            || gGameStatusPtr->startupState == LOGOS_STATE_NINTENDO_FADE_IN
-            || gGameStatusPtr->startupState == LOGOS_STATE_NINTENDO_HOLD
-            || gGameStatusPtr->startupState == LOGOS_STATE_NINTENDO_FADE_OUT
-            || gGameStatusPtr->startupState == LOGOS_STATE_IS_FADE_IN
-            || gGameStatusPtr->startupState == LOGOS_STATE_IS_HOLD_1
-            || gGameStatusPtr->startupState == LOGOS_STATE_IS_HOLD_2
-            || gGameStatusPtr->startupState == LOGOS_STATE_IS_FADE_OUT
-            || gGameStatusPtr->startupState == LOGOS_STATE_CURTAINS_APPEAR)
-            && (pressedButtons & (BUTTON_START | BUTTON_Z | BUTTON_A))
-        ) {
-            startup_set_fade_screen_color(208);
-            gGameStatusPtr->skipLogos = TRUE;
-        }
-
         switch (gGameStatusPtr->startupState) {
             case LOGOS_STATE_N64_FADE_IN:
                 if (startup_fade_screen_in(10)) {
