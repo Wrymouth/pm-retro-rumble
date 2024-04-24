@@ -25,9 +25,9 @@ EvtScript N(EVS_UseMove) = {
             Set(LVarF, 4) // good input dmg
             ExecWait(N(EVS_UseMove_Impl))
         CaseEq(2)
-            Set(LVarD, 45)// action command duration
-            Set(LVarE, 3) // bad input dmg
-            Set(LVarF, 6) // good input dmg
+            Set(LVarD, 45)
+            Set(LVarE, 3)
+            Set(LVarF, 5)
             ExecWait(N(EVS_UseMove_Impl))
     EndSwitch
     Return

@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SpriteSheet maxComponents="1" paletteGroups="2">
+	<PaletteList>
+		<Palette id="0" src="Default.png"/>
+		<Palette id="1" src="Dark.png"/>
+		<Palette id="2" src="Poisoned.png"/>
+		<Palette id="3" src="Unused1.png"/>
+		<Palette id="4" src="Disabled.png"/>
+		<Palette id="5" src="Unused2.png"/>
+		<Palette id="6" src="Shocked.png"/>
+		<Palette id="7" src="Unused3.png"/>
+	</PaletteList>
+	<RasterList>
+		<Raster id="0" name="Neutral" palette="0" src="Neutral.png"/>
+		<Raster id="1" name="RaiseArms1" palette="0" src="RaiseArms1.png"/>
+		<Raster id="2" name="RaiseArms2" palette="0" src="RaiseArms2.png"/>
+		<Raster id="3" name="Talk1" palette="0" src="Talk1.png"/>
+		<Raster id="4" name="Talk2" palette="0" src="Talk2.png"/>
+		<Raster id="5" name="Talk3" palette="0" src="Talk3.png"/>
+		<Raster id="6" name="RaisedArms" palette="0" src="RaisedArms.png"/>
+		<Raster id="7" name="RaisedArmsBlink1" palette="0" src="RaisedArmsBlink1.png"/>
+		<Raster id="8" name="RaisedArmsBlink2" palette="0" src="RaisedArmsBlink2.png"/>
+		<Raster id="9" name="Horror1" palette="0" src="Horror1.png"/>
+		<Raster id="A" name="Horror2" palette="0" src="Horror2.png"/>
+		<Raster id="B" name="Horror3" palette="0" src="Horror3.png"/>
+		<Raster id="C" name="Weep1" palette="0" src="Weep1.png"/>
+		<Raster id="D" name="Weep2" palette="0" src="Weep2.png"/>
+		<Raster id="E" name="Weep3" palette="0" src="Weep3.png"/>
+		<Raster id="F" name="ShadeWave1" palette="1" src="ShadeWave1.png"/>
+		<Raster id="10" name="ShadeWave2" palette="1" src="ShadeWave2.png"/>
+		<Raster id="11" name="ShadeWave3" palette="1" src="ShadeWave3.png"/>
+		<Raster id="12" name="ShadeFaceSide" palette="1" src="ShadeFaceSide.png"/>
+		<Raster id="13" name="ShadeKiss1" palette="1" src="ShadeKiss1.png"/>
+		<Raster id="14" name="ShadeKiss2" palette="1" src="ShadeKiss2.png"/>
+		<Raster id="15" name="ShadeSlightBow" palette="1" src="ShadeSlightBow.png"/>
+		<Raster id="16" name="LeanBack" palette="0" src="LeanBack.png"/>
+		<Raster id="17" name="ShadeNeutral" palette="1" src="ShadeNeutral.png"/>
+		<Raster id="18" name="ShadeStep1" palette="1" src="ShadeStep1.png"/>
+		<Raster id="19" name="ShadeStep2" palette="1" src="ShadeStep2.png"/>
+		<Raster id="1A" name="ShadeStep3" palette="1" src="ShadeStep3.png"/>
+		<Raster id="1B" name="ShadeNeutralBack" palette="1" src="ShadeNeutralBack.png"/>
+		<Raster id="1C" name="ShadeStepBack1" palette="1" src="ShadeStepBack1.png"/>
+		<Raster id="1D" name="ShadeStepBack2" palette="1" src="ShadeStepBack2.png"/>
+		<Raster id="1E" name="ShadeStepBack3" palette="1" src="ShadeStepBack3.png"/>
+		<Raster id="1F" name="ShadeRaiseArms1" palette="1" src="ShadeRaiseArms1.png"/>
+		<Raster id="20" name="ShadeRaiseArms2" palette="1" src="ShadeRaiseArms2.png"/>
+		<Raster id="21" name="ShadeTalk1" palette="1" src="ShadeTalk1.png"/>
+		<Raster id="22" name="ShadeTalk2" palette="1" src="ShadeTalk2.png"/>
+		<Raster id="23" name="ShadeTalk3" palette="1" src="ShadeTalk3.png"/>
+		<Raster id="24" name="ShadeBlink1" palette="1" src="ShadeBlink1.png"/>
+		<Raster id="25" name="ShadeBlink2" palette="1" src="ShadeBlink2.png"/>
+		<Raster id="26" name="Bow1" palette="0" src="Bow1.png"/>
+		<Raster id="27" name="Bow2" palette="0" src="Bow2.png"/>
+		<Raster id="28" name="Run1" palette="0" src="Run1.png"/>
+		<Raster id="29" name="Run2" palette="0" src="Run2.png"/>
+		<Raster id="2A" name="Run3" palette="0" src="Run3.png"/>
+		<Raster id="2B" name="Run4" palette="0" src="Run4.png"/>
+	</RasterList>
+	<AnimationList>
+		<Animation name="Still">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="RaiseArms">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1001"/>
+				<Command val="6"/>
+				<Command val="1002"/>
+				<Command val="6"/>
+				<Command val="8201"/>
+				<Command val="2004"/>
+			</Component>
+		</Animation>
+		<Animation name="Talk">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1003"/>
+				<Command val="6"/>
+				<Command val="1004"/>
+				<Command val="4"/>
+				<Command val="1005"/>
+				<Command val="2"/>
+				<Command val="1004"/>
+				<Command val="4"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="LowerArms">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1002"/>
+				<Command val="8"/>
+				<Command val="1001"/>
+				<Command val="8"/>
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2008"/>
+			</Component>
+		</Animation>
+		<Animation name="IdleRaisedArms">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1007"/>
+				<Command val="2"/>
+				<Command val="1008"/>
+				<Command val="2"/>
+				<Command val="1007"/>
+				<Command val="2"/>
+				<Command val="1006"/>
+				<Command val="4"/>
+				<Command val="1007"/>
+				<Command val="2"/>
+				<Command val="1008"/>
+				<Command val="2"/>
+				<Command val="1007"/>
+				<Command val="2"/>
+				<Command val="1006"/>
+				<Command val="A0"/>
+				<Command val="1007"/>
+				<Command val="2"/>
+				<Command val="1008"/>
+				<Command val="2"/>
+				<Command val="1007"/>
+				<Command val="2"/>
+				<Command val="1006"/>
+				<Command val="64"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="HorrorBegin">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1002"/>
+				<Command val="6"/>
+				<Command val="1009"/>
+				<Command val="4"/>
+				<Command val="100A"/>
+				<Command val="2"/>
+				<Command val="100B"/>
+				<Command val="50"/>
+				<Command val="100A"/>
+				<Command val="6"/>
+				<Command val="1009"/>
+				<Command val="A"/>
+				<Command val="1002"/>
+				<Command val="8"/>
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="201C"/>
+			</Component>
+		</Animation>
+		<Animation name="HorrorLoop">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="3001"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="100B"/>
+				<Command val="4"/>
+				<Command val="100B"/>
+				<Command val="4"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Weep">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="100C"/>
+				<Command val="4"/>
+				<Command val="100D"/>
+				<Command val="4"/>
+				<Command val="100E"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2008"/>
+			</Component>
+		</Animation>
+		<Animation name="EndWeep">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="100D"/>
+				<Command val="6"/>
+				<Command val="100C"/>
+				<Command val="6"/>
+				<Command val="1000"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2008"/>
+			</Component>
+		</Animation>
+		<Animation name="Run">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1028"/>
+				<Command val="6"/>
+				<Command val="102A"/>
+				<Command val="2"/>
+				<Command val="102B"/>
+				<Command val="2"/>
+				<Command val="102A"/>
+				<Command val="2"/>
+				<Command val="1029"/>
+				<Command val="6"/>
+				<Command val="102A"/>
+				<Command val="2"/>
+				<Command val="102B"/>
+				<Command val="2"/>
+				<Command val="102A"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="Bow">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="3001"/>
+				<Command val="FFFF"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="1026"/>
+				<Command val="6"/>
+				<Command val="3001"/>
+				<Command val="FFFE"/>
+				<Command val="0"/>
+				<Command val="0"/>
+				<Command val="1027"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="200C"/>
+			</Component>
+		</Animation>
+		<Animation name="LeanBack">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1016"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeStill">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1017"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeIdle">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1024"/>
+				<Command val="2"/>
+				<Command val="1025"/>
+				<Command val="2"/>
+				<Command val="1024"/>
+				<Command val="2"/>
+				<Command val="1017"/>
+				<Command val="4"/>
+				<Command val="1024"/>
+				<Command val="2"/>
+				<Command val="1025"/>
+				<Command val="2"/>
+				<Command val="1024"/>
+				<Command val="2"/>
+				<Command val="1017"/>
+				<Command val="A0"/>
+				<Command val="1024"/>
+				<Command val="2"/>
+				<Command val="1025"/>
+				<Command val="2"/>
+				<Command val="1024"/>
+				<Command val="2"/>
+				<Command val="1017"/>
+				<Command val="64"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeBack">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="101B"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeWalk">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1019"/>
+				<Command val="8"/>
+				<Command val="1018"/>
+				<Command val="8"/>
+				<Command val="1019"/>
+				<Command val="8"/>
+				<Command val="101A"/>
+				<Command val="8"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeWalkBack">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="101B"/>
+				<Command val="C"/>
+				<Command val="101C"/>
+				<Command val="6"/>
+				<Command val="101D"/>
+				<Command val="C"/>
+				<Command val="101E"/>
+				<Command val="6"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeRaiseArms">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="101F"/>
+				<Command val="6"/>
+				<Command val="1020"/>
+				<Command val="6"/>
+				<Command val="8201"/>
+				<Command val="2004"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeTalk">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1021"/>
+				<Command val="6"/>
+				<Command val="1022"/>
+				<Command val="4"/>
+				<Command val="1023"/>
+				<Command val="2"/>
+				<Command val="1022"/>
+				<Command val="4"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeLowerArms">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1020"/>
+				<Command val="8"/>
+				<Command val="101F"/>
+				<Command val="8"/>
+				<Command val="1017"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2008"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeWaveSlow">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1010"/>
+				<Command val="14"/>
+				<Command val="100F"/>
+				<Command val="C"/>
+				<Command val="1011"/>
+				<Command val="14"/>
+				<Command val="100F"/>
+				<Command val="C"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeWaveFast">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1010"/>
+				<Command val="6"/>
+				<Command val="100F"/>
+				<Command val="4"/>
+				<Command val="1011"/>
+				<Command val="6"/>
+				<Command val="100F"/>
+				<Command val="4"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeSlightBow">
+			<Component name="Comp_0" xyz="0,0,0">
+				<Command val="1015"/>
+				<Command val="C"/>
+				<Command val="1017"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2004"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeFaceSide">
+			<Component name="Comp_0" xyz="-4,0,0">
+				<Command val="1012"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2000"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeKiss">
+			<Component name="Comp_0" xyz="-4,0,0">
+				<Command val="1013"/>
+				<Command val="4"/>
+				<Command val="1014"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2004"/>
+			</Component>
+		</Animation>
+		<Animation name="ShadeEndKiss">
+			<Component name="Comp_0" xyz="-4,0,0">
+				<Command val="1013"/>
+				<Command val="6"/>
+				<Command val="1012"/>
+				<Command val="2"/>
+				<Command val="8201"/>
+				<Command val="2004"/>
+			</Component>
+		</Animation>
+	</AnimationList>
+</SpriteSheet>

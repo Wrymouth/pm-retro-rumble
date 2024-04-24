@@ -7,6 +7,8 @@ EvtScript N(EVS_NpcIdle_Fishmael) = {
     Call(DisablePlayerInput, TRUE)
     Wait(45)
     Call(ShowMessageAtScreenPos, MSG_Game_Credits, 160, 40)
+    Call(SetMusicTrack, 0, SONG_PEACH_QUIZ_INTRO, 0, 8)
+    Call(ShowMessageAtScreenPos, MSG_Game_Intro, 160, 40)
     Call(StartBossBattle, SONG_SMB1_BOWSER)
     Return
     End
