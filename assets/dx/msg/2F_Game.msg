@@ -1,8 +1,11 @@
 #message:2F:(Game_Credits) {
 	[Style inspect]
 	Made by Wrymouth using Star Rod[BR]
-	for decomp and papermario-dx.[BR]
-	[Pause 10]Star Rod made by clover,[BR]
+	for decomp and papermario-dx, a[BR]
+	fork of the PM64 decomp with[BR]
+	better support for modding.[BR]
+	[Wait][Next]
+	Star Rod made by clover,[BR]
 	papermario-dx made by alex.[BR]
 	[Wait][Next]
 	Music imported by Wrymouth.[BR]
