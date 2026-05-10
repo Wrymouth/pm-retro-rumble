@@ -4,9 +4,9 @@
 /// Creates the version string that appears on the file select menu.
 /// Also used to sign save files created with this mod.
 /// WARNING: name must not exceed 27 characters!
-#define DX_MOD_NAME "Retro Rumle"
+#define DX_MOD_NAME "Retro Rumble"
 #define DX_MOD_VER_MAJOR 1 /// Increase this when you make breaking changes to the savefile format (like reordering items)
-#define DX_MOD_VER_MINOR 0 /// Increase this when adding new features or other enchancements
+#define DX_MOD_VER_MINOR 1 /// Increase this when adding new features or other enchancements
 #define DX_MOD_VER_PATCH 0 /// Increase this when fixing bugs
 
 /// Enables the debug menu.
@@ -26,7 +26,7 @@
 #define DX_SKIP_STORY 1
 
 /// Skips the demo reel playing while waiting for the player to 'Press Start'.
-#define DX_SKIP_DEMO 0
+#define DX_SKIP_DEMO 1
 
 /// Map to load when starting a new game.
 #define NEW_GAME_MAP_ID "tst_01"
