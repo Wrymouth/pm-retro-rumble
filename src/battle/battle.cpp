@@ -127,6 +127,8 @@ void reset_battle_status(void) {
     gOverrideBattlePtr = nullptr;
 }
 
+void osSyncPrintf(const char* fmt, ...);
+
 void load_battle_section(void) {
     BattleArea* battleArea = &gBattleAreas[UNPACK_BTL_AREA(gCurrentBattleID)];
     s32 battleIdx = UNPACK_BTL_INDEX(gCurrentBattleID);

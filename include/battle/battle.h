@@ -48,14 +48,13 @@ enum BattleAreaIDs {
     BTL_AREA_KPA4          = 0x25,
     BTL_AREA_KKJ           = 0x26,
     BTL_AREA_DIG           = 0x27,
-    BTL_AREA_UNUSED_28     = 0x28,
-    BTL_AREA_OMO2_1        = 0x29,
-    BTL_AREA_OMO2_2        = 0x2A,
-    BTL_AREA_OMO2_3        = 0x2B,
-    BTL_AREA_OMO2_4        = 0x2C,
-    BTL_AREA_OMO2_5        = 0x2D,
-    BTL_AREA_OMO2_6        = 0x2E,
-    BTL_AREA_RET           = 0x2F,
+    BTL_AREA_OMO2_1        = 0x28,
+    BTL_AREA_OMO2_2        = 0x29,
+    BTL_AREA_OMO2_3        = 0x2A,
+    BTL_AREA_OMO2_4        = 0x2B,
+    BTL_AREA_OMO2_5        = 0x2C,
+    BTL_AREA_OMO2_6        = 0x2D,
+    BTL_AREA_RET           = 0x2E,
 };
 
 enum BattlePositions {
@@ -222,7 +221,7 @@ typedef struct BattleArea {
     /* 0x1C */ DmaTable* dmaTable;
 } BattleArea; // size = 0x20
 
-EXTERN_C BattleArea gBattleAreas[0x31];
+EXTERN_C BattleArea gBattleAreas[47];
 
 #define BATTLE(formation, stage, name) { name, ARRAY_COUNT(formation), (Formation*) formation, &stage }
 #define BATTLE_WITH_SCRIPT(formation, stage, script, name) { name, ARRAY_COUNT(formation), (Formation*) formation, &stage, &script }

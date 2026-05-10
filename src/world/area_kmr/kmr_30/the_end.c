@@ -134,7 +134,7 @@ EvtScript N(EVS_Scene_TheEnd) = {
     Call(PlayerMoveTo, 320, -80, 0)
     Call(PlayerMoveTo, 300, -120, 0)
     Wait(40)
-    Call(SetMusicTrack, 0, SONG_THE_END, 0, 8)
+    Call(SetMusic, 0, SONG_THE_END, 0, 8)
     Wait(70)
     PlayEffect(EFFECT_FIREWORK_ROCKET, 0, 153, 370, -350, -1, 4, -1, Float(1.6), 70)
     Call(N(ChooseFireworkColors), LVarF)

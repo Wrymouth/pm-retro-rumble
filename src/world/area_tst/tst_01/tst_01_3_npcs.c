@@ -4,10 +4,10 @@
 
 
 EvtScript N(EVS_NpcIdle_Fishmael) = {
-    Call(DisablePlayerInput, TRUE)
+    Call(DisablePlayerInput, true)
     Wait(45)
     Call(ShowMessageAtScreenPos, MSG_Game_Credits, 160, 40)
-    Call(SetMusicTrack, 0, SONG_PEACH_QUIZ_INTRO, 0, 8)
+    Call(SetMusic, 0, SONG_PEACH_QUIZ_INTRO, 0, 8)
     Call(ShowMessageAtScreenPos, MSG_Game_Intro, 160, 40)
     Call(StartBossBattle, SONG_SMB1_BOWSER)
     Return
@@ -15,7 +15,7 @@ EvtScript N(EVS_NpcIdle_Fishmael) = {
 };
 
 EvtScript N(EVS_NpcDefeat_Fishmael) = {
-    Call(DisablePlayerInput, TRUE)
+    Call(DisablePlayerInput, true)
     Call(ShowMessageAtScreenPos, MSG_Game_YouWin, 160, 40)
     Call(GotoMap, "kmr_30", 0)
     Return
@@ -35,7 +35,7 @@ NpcData N(NpcData_Fishmael) = {
     .yaw = 270,
     .init = &N(EVS_NpcInit_Fishmael),
     .settings = &N(NpcSettings_Toad_Stationary),
-    .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_400000,
+    .flags = COMMON_PASSIVE_FLAGS | ENEMY_FLAG_DO_NOT_AUTO_FACE_PLAYER,
     .drops = NO_DROPS,
     .animations = {
         .idle   = ANIM_Fishmael_Idle,

@@ -4,9 +4,9 @@ API_CALLABLE(Tattle_CheckForLPress) {
     GameStatus* gameStatus = &gGameStatus;
 
     if (!evt_get_variable(script, GF_TattleWindowOpen) && evt_get_variable(script, LVar1) == PHASE_PLAYER_BEGIN && (gameStatus->pressedButtons[0] & BUTTON_L)) {
-        evt_set_variable(script, LVar0, TRUE);
+        evt_set_variable(script, LVar0, true);
     } else {
-        evt_set_variable(script, LVar0, FALSE);
+        evt_set_variable(script, LVar0, false);
     }
     return ApiStatus_DONE2;   
 }
@@ -22,8 +22,8 @@ EvtScript EVS_DisplayTattleWindow = {
         Label(10)
         Call(GetBattlePhase, LVar1)
         Call(Tattle_CheckForLPress)
-        IfEq(LVar0, TRUE)
-            Set(GF_TattleWindowOpen, TRUE)
+        IfEq(LVar0, true)
+            Set(GF_TattleWindowOpen, true)
             // TODO set proper tattle
             Call(Tattle_GetTargetActor, LVar0)
             Call(ShowMessageAtScreenPos, LVar0, 160, 40)

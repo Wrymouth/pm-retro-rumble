@@ -40,7 +40,7 @@ s32 N(StatusTable)[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
     STATUS_KEY_SHRINK,              0,
@@ -50,7 +50,7 @@ s32 N(StatusTable)[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -67,7 +67,7 @@ s32 N(MushroomAnims)[] = {
     STATUS_KEY_STATIC,    ANIM_Mushroom_Still,
     STATUS_KEY_PARALYZE,  ANIM_Mushroom_Still,
     STATUS_KEY_DIZZY,     ANIM_Mushroom_Still,
-    STATUS_KEY_FEAR,      ANIM_Mushroom_Still,
+    STATUS_KEY_UNUSED,      ANIM_Mushroom_Still,
     STATUS_END,
 };
 
@@ -130,7 +130,7 @@ s32 N(DefaultAnims)[] = {
     STATUS_KEY_STATIC,    ANIM_RetroTails_Idle,
     STATUS_KEY_PARALYZE,  ANIM_RetroTails_Idle,
     STATUS_KEY_DIZZY,     ANIM_RetroTails_Idle,
-    STATUS_KEY_FEAR,      ANIM_RetroTails_Idle,
+    STATUS_KEY_UNUSED,      ANIM_RetroTails_Idle,
     STATUS_END,
 };
 
@@ -142,7 +142,7 @@ EvtScript N(EVS_Idle) = {
 };
 
 EvtScript N(EVS_HandleEvent) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -195,7 +195,7 @@ EvtScript N(EVS_HandleEvent) = {
         CaseEq(EVENT_RECOVER_STATUS)
             // nothing
         CaseEq(EVENT_SCARE_AWAY)
-            Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_FLYING, TRUE)
+            Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_FLYING, true)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_RetroTails_Hurt)
             SetConst(LVar2, ANIM_RetroTails_Idle)
@@ -204,7 +204,7 @@ EvtScript N(EVS_HandleEvent) = {
         CaseDefault
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -241,7 +241,7 @@ API_CALLABLE(N(DetermineAttackOdds)) {
 }
 
 EvtScript N(EVS_JumpAttack) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
 
@@ -251,12 +251,12 @@ EvtScript N(EVS_JumpAttack) = {
     Call(SetGoalPos, ACTOR_SELF, LVar0, 0, LVar2)
     Call(SetActorJumpGravity, ACTOR_SELF, Float(1.0))
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_QUICK_PLAYER_JUMP)
-    Call(JumpToGoal, ACTOR_SELF, 20, TRUE, 0, 0)
+    Call(JumpToGoal, ACTOR_SELF, 20, true, 0, 0)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_OBJECT_LAND)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(SetActorJumpGravity, ACTOR_SELF, Float(1.6))
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_QUICK_PLAYER_JUMP)
-    Call(JumpToGoal, ACTOR_SELF, 20, TRUE, 0, 0)
+    Call(JumpToGoal, ACTOR_SELF, 20, true, 0, 0)
     Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, 0)
     
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroTails_Idle)
@@ -264,7 +264,7 @@ EvtScript N(EVS_JumpAttack) = {
     Call(FlyToGoal, ACTOR_SELF, 0, 0, EASING_COS_IN_OUT)
     
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Call(GetActorVar, ACTOR_SELF, AVar_TurnsLeft, LVar0)
     Return
     End
@@ -279,7 +279,7 @@ EvtScript N(EVS_HealAlly) = {
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar4, LVar5)
     Call(SetActorSpeed, ACTOR_SELF, Float(2.0))
     Call(FlyToGoal, ACTOR_SELF, 0, 0, EASING_COS_IN_OUT)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MUSHROOM, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MUSHROOM, ACTOR_PART_FLAG_INVISIBLE, false)
     Sub(LVar4, 10)
     Add(LVar5, 2)
     Call(SetPartPos, ACTOR_SELF, PRT_MUSHROOM, LVar0, LVar4, LVar5)
@@ -289,11 +289,11 @@ EvtScript N(EVS_HealAlly) = {
     Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Sub(LVar1, 10)
     Call(PlaySoundAtPart, ACTOR_SELF, PRT_MUSHROOM, SOUND_FALL_QUICK)
-    Call(JumpPartTo, ACTOR_SELF, PRT_MUSHROOM, LVar0, LVar1, LVar2, 15, FALSE)
+    Call(JumpPartTo, ACTOR_SELF, PRT_MUSHROOM, LVar0, LVar1, LVar2, 15, false)
     Call(PlaySoundAtActor, LVarC, SOUND_RECOVER_HEART)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MUSHROOM, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MUSHROOM, ACTOR_PART_FLAG_INVISIBLE, true)
     Thread
-        Call(HealActor, LVarC, AMT_HEAL, FALSE)
+        Call(HealActor, LVarC, AMT_HEAL, false)
     EndThread
     Wait(30)
     Return
@@ -301,7 +301,7 @@ EvtScript N(EVS_HealAlly) = {
 };
 
 EvtScript N(EVS_Heal) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
 
     IfFalse(GF_SonicDead)
@@ -318,13 +318,13 @@ EvtScript N(EVS_Heal) = {
     Call(FlyToGoal, ACTOR_SELF, 0, 0, EASING_COS_IN_OUT)
 
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript N(EVS_CarryAttack) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
 
@@ -350,7 +350,7 @@ EvtScript N(EVS_CarryAttack) = {
     Call(SetActorSpeed, ACTOR_PLAYER, Float(1.9))
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_MALLET_SWING)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroTails_Carry)
-    Call(UseIdleAnimation, ACTOR_PLAYER, FALSE)
+    Call(UseIdleAnimation, ACTOR_PLAYER, false)
     Call(SetAnimation, ACTOR_PLAYER, 0, ANIM_Mario1_Hurt)
     Wait(5)
     Add(LVar1, 60)
@@ -382,8 +382,8 @@ EvtScript N(EVS_CarryAttack) = {
     Call(SetGoalToHome, ACTOR_SELF)
     Call(FlyToGoal, ACTOR_SELF, 0, 0, EASING_COS_IN_OUT)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_PLAYER, TRUE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_PLAYER, true)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -408,21 +408,21 @@ EvtScript N(EVS_TakeTurn) = {
 };
 
 EvtScript N(EVS_Init) = {
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, TRUE)
-    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, TRUE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_MAIN, ACTOR_PART_FLAG_NO_TARGET, true)
+    Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_INVISIBLE|ACTOR_FLAG_NO_HEALTH_BAR, true)
     Call(SetActorScale, ACTOR_SELF, Float(1.5), Float(1.5), Float(1.5))
     Call(BindIdle, ACTOR_SELF, Ref(N(EVS_Idle)))
     Call(BindTakeTurn, ACTOR_SELF, Ref(N(EVS_TakeTurn)))
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
     Call(BindHandlePhase, ACTOR_SELF, Ref(N(EVS_HandlePhase)))
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript N(EVS_HandlePhase) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetBattlePhase, LVar0)
     Switch(LVar0)
@@ -430,7 +430,7 @@ EvtScript N(EVS_HandlePhase) = {
         CaseEq(PHASE_ENEMY_BEGIN)
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };

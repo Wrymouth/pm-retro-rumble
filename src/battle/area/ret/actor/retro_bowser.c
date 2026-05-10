@@ -41,7 +41,7 @@ s32 N(StatusTable)[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_FEAR,                0,
+    STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
     STATUS_KEY_PARALYZE,            0,
     STATUS_KEY_SHRINK,              0,
@@ -51,7 +51,7 @@ s32 N(StatusTable)[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_FEAR,           0,
+    STATUS_TURN_MOD_UNUSED,           0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -174,7 +174,7 @@ s32 N(DefaultAnims)[] = {
     STATUS_KEY_STATIC,    ANIM_RetroBowser_Idle,
     STATUS_KEY_PARALYZE,  ANIM_RetroBowser_Idle,
     STATUS_KEY_DIZZY,     ANIM_RetroBowser_Idle,
-    STATUS_KEY_FEAR,      ANIM_RetroBowser_Idle,
+    STATUS_KEY_UNUSED,      ANIM_RetroBowser_Idle,
     STATUS_END,
 };
 
@@ -186,7 +186,7 @@ EvtScript N(EVS_Idle) = {
 };
 
 EvtScript N(EVS_HandleEvent) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetLastEvent, ACTOR_SELF, LVar0)
     Switch(LVar0)
@@ -239,7 +239,7 @@ EvtScript N(EVS_HandleEvent) = {
         CaseEq(EVENT_RECOVER_STATUS)
             // nothing
         CaseEq(EVENT_SCARE_AWAY)
-            Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_FLYING, TRUE)
+            Call(SetActorFlagBits, ACTOR_SELF, ACTOR_FLAG_FLYING, true)
             SetConst(LVar0, PRT_MAIN)
             SetConst(LVar1, ANIM_RetroBowser_OpenMouth)
             SetConst(LVar2, ANIM_RetroBowser_OpenMouth)
@@ -248,13 +248,13 @@ EvtScript N(EVS_HandleEvent) = {
         CaseDefault
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript N(EVS_DoFireballAttack) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -265,7 +265,7 @@ EvtScript N(EVS_DoFireballAttack) = {
     Sub(LVar2, 2)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_LAVA_PIRANHA_FIRE_BREATH)
     Call(SetPartPos, ACTOR_SELF, PRT_FIREBALL, LVar0, LVar1, LVar2)
-    Call(SetPartFlagBits, ACTOR_SELF, PRT_FIREBALL, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+    Call(SetPartFlagBits, ACTOR_SELF, PRT_FIREBALL, ACTOR_PART_FLAG_INVISIBLE, false)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(SetPartMoveSpeed, ACTOR_SELF, PRT_FIREBALL, Float(6.0))
     Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -279,16 +279,16 @@ EvtScript N(EVS_DoFireballAttack) = {
         Sub(LVar1, 8)
         Call(FlyPartTo, ACTOR_SELF, PRT_FIREBALL, LVar0, LVar1, LVar2, 0, 0, EASING_LINEAR )
         Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_NO_CONTACT|DAMAGE_TYPE_FIRE, 0, 0, DMG_FIREBALL, 0)
-        Call(SetPartFlagBits, ACTOR_SELF, PRT_FIREBALL, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+        Call(SetPartFlagBits, ACTOR_SELF, PRT_FIREBALL, ACTOR_PART_FLAG_INVISIBLE, true)
     EndIf
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript N(EVS_DoHammerAttack) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -311,54 +311,54 @@ EvtScript N(EVS_DoHammerAttack) = {
         Sub(LVar0, 20)
         Add(LVar1, 20)
         Thread
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER1, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER1, ACTOR_PART_FLAG_INVISIBLE, false)
             Call(PlaySoundAtActor, ACTOR_SELF, SOUND_PARAKARRY_PREDIVE)
             Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER1, LVar0, LVar1, LVar2, 15, 0)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER1, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER1, ACTOR_PART_FLAG_INVISIBLE, true)
         EndThread
         Wait(10)
         Thread
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER2, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER2, ACTOR_PART_FLAG_INVISIBLE, false)
             Call(PlaySoundAtActor, ACTOR_SELF, SOUND_PARAKARRY_PREDIVE)
             Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER2, LVar0, LVar1, LVar2, 15, 0)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER2, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER2, ACTOR_PART_FLAG_INVISIBLE, true)
         EndThread
         Wait(10)
         Thread
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER3, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER3, ACTOR_PART_FLAG_INVISIBLE, false)
             Call(PlaySoundAtActor, ACTOR_SELF, SOUND_PARAKARRY_PREDIVE)
             Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER3, LVar0, LVar1, LVar2, 15, 0)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER3, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER3, ACTOR_PART_FLAG_INVISIBLE, true)
         EndThread
     Else
         Sub(LVar0, 5)
         Add(LVar1, 5)
         Thread
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER1, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER1, ACTOR_PART_FLAG_INVISIBLE, false)
             Call(PlaySoundAtActor, ACTOR_SELF, SOUND_PARAKARRY_PREDIVE)
             Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER1, LVar0, LVar1, LVar2, 15, 0)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER1, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER1, ACTOR_PART_FLAG_INVISIBLE, true)
             Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_NO_CONTACT|DAMAGE_TYPE_JUMP, 0, 0, DMG_HAMMER, 0)
         EndThread
         Wait(10)
         Thread
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER2, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER2, ACTOR_PART_FLAG_INVISIBLE, false)
             Call(PlaySoundAtActor, ACTOR_SELF, SOUND_PARAKARRY_PREDIVE)
             Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER2, LVar0, LVar1, LVar2, 15, 0)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER2, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER2, ACTOR_PART_FLAG_INVISIBLE, true)
             Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_NO_CONTACT|DAMAGE_TYPE_JUMP, 0, 0, DMG_HAMMER, 0)
         EndThread
         Wait(10)
         Thread
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER3, ACTOR_PART_FLAG_INVISIBLE, FALSE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER3, ACTOR_PART_FLAG_INVISIBLE, false)
             Call(PlaySoundAtActor, ACTOR_SELF, SOUND_PARAKARRY_PREDIVE)
             Call(JumpPartTo, ACTOR_SELF, PRT_HAMMER3, LVar0, LVar1, LVar2, 15, 0)
-            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER3, ACTOR_PART_FLAG_INVISIBLE, TRUE)
+            Call(SetPartFlagBits, ACTOR_SELF, PRT_HAMMER3, ACTOR_PART_FLAG_INVISIBLE, true)
             Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_NO_CONTACT|DAMAGE_TYPE_JUMP, 0, 0, DMG_HAMMER, 0)
         EndThread
     EndIf
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
@@ -366,10 +366,10 @@ EvtScript N(EVS_DoHammerAttack) = {
 EvtScript N(EVS_TakeTurn) = {
     Call(GetActorVar, ACTOR_SELF, AVar_UseHammer, LVar0)
     IfTrue(LVar0)
-        Call(SetActorVar, ACTOR_SELF, AVar_UseHammer, FALSE)
+        Call(SetActorVar, ACTOR_SELF, AVar_UseHammer, false)
         ExecWait(N(EVS_DoHammerAttack))
     Else
-        Call(SetActorVar, ACTOR_SELF, AVar_UseHammer, TRUE)
+        Call(SetActorVar, ACTOR_SELF, AVar_UseHammer, true)
         ExecWait(N(EVS_DoFireballAttack))
     EndIf
     Return
@@ -383,13 +383,13 @@ EvtScript N(EVS_Init) = {
     Call(BindHandleEvent, ACTOR_SELF, Ref(N(EVS_HandleEvent)))
     Call(BindHandlePhase, ACTOR_SELF, Ref(N(EVS_HandlePhase)))
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };
 
 EvtScript N(EVS_HandlePhase) = {
-    Call(UseIdleAnimation, ACTOR_SELF, FALSE)
+    Call(UseIdleAnimation, ACTOR_SELF, false)
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_DISABLE)
     Call(GetBattlePhase, LVar0)
     Switch(LVar0)
@@ -397,7 +397,7 @@ EvtScript N(EVS_HandlePhase) = {
         CaseEq(PHASE_ENEMY_BEGIN)
     EndSwitch
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
-    Call(UseIdleAnimation, ACTOR_SELF, TRUE)
+    Call(UseIdleAnimation, ACTOR_SELF, true)
     Return
     End
 };

@@ -83,9 +83,9 @@ void clear_player_data(void) {
     playerData->starPower = 0;
     playerData->starBeamLevel = 0;
 
-    evt_set_variable(NULL, GF_Tutorial_GotItem, TRUE);
+    evt_set_variable(NULL, GF_Tutorial_GotItem, true);
 
-    playerData->partners[0].enabled = TRUE;
+    playerData->partners[0].enabled = true;
     playerData->partners[0].level = PARTNER_RANK_NORMAL;
     playerData->partners[0].unk_02[0] = 0;
     playerData->partners[0].unk_02[1] = 0;
