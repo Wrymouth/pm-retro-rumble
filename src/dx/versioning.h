@@ -17,11 +17,11 @@ typedef struct SaveGlobals {
 } SaveGlobals; // size = 0x80
 
 typedef struct VanillaSaveFileSummary {
+    /* 0x07 */ char filename[8];
     /* 0x00 */ s32 timePlayed;
     /* 0x04 */ u8 spiritsRescued;
     /* 0x05 */ unsigned char unk_05[1];
     /* 0x06 */ s8 level;
-    /* 0x07 */ char filename[8];
     /* 0x0F */ unsigned char unk_0F[9];
 } VanillaSaveFileSummary; // size = 0x18
 
@@ -132,11 +132,11 @@ typedef struct VanillaSaveData {
 } VanillaSaveData; // size = 0x1380
 
 typedef struct SaveFileSummary {
+    /* 0x07 */ char filename[8];
     /* 0x00 */ s32 timePlayed;
     /* 0x04 */ u8 spiritsRescued;
     /* 0x05 */ unsigned char unused_05[1];
     /* 0x06 */ s8 level;
-    /* 0x07 */ char filename[8];
     /* 0x0F */ unsigned char unused_0F[9];
 } SaveFileSummary; // size = 0x18
 
