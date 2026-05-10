@@ -121,6 +121,9 @@ void clear_player_data(void) {
         playerData->storedItems[i] = ITEM_NONE;
     }
 
+    playerData->badges[0] = ITEM_DODGE_MASTER;
+    playerData->equippedBadges[0] = ITEM_DODGE_MASTER;
+
     playerData->actionCommandAttempts = 0;
     playerData->actionCommandSuccesses = 0;
     playerData->hitsTaken = 0;
