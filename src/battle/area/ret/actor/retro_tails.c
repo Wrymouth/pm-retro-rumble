@@ -40,9 +40,9 @@ s32 N(StatusTable)[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,               0,
-    STATUS_KEY_UNUSED,                0,
+    STATUS_KEY_UNUSED,              0,
     STATUS_KEY_STATIC,              0,
-    STATUS_KEY_PARALYZE,            0,
+    STATUS_KEY_PARALYZE,           40,
     STATUS_KEY_SHRINK,              0,
     STATUS_KEY_STOP,                0,
     STATUS_TURN_MOD_DEFAULT,        0,
@@ -50,7 +50,7 @@ s32 N(StatusTable)[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_UNUSED,           0,
+    STATUS_TURN_MOD_UNUSED,         0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -254,13 +254,32 @@ EvtScript N(EVS_JumpAttack) = {
     Call(JumpToGoal, ACTOR_SELF, 20, true, 0, 0)
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_OBJECT_LAND)
     Call(SetGoalToTarget, ACTOR_SELF)
-    Call(SetActorJumpGravity, ACTOR_SELF, Float(1.6))
-    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_QUICK_PLAYER_JUMP)
-    Call(JumpToGoal, ACTOR_SELF, 20, true, 0, 0)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, 0)
+    Call(EnemyTestTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, BS_FLAGS1_INCLUDE_POWER_UPS)
+    Switch(LVarA)
+        CaseOrEq(HIT_RESULT_MISS)
+        CaseOrEq(HIT_RESULT_LUCKY)
+            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, 0, LVar2)
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(1.6))
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_QUICK_PLAYER_JUMP)
+            Call(JumpToGoal, ACTOR_SELF, 20, true, false, false)
+            IfEq(LVarA, HIT_RESULT_LUCKY)
+                Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
+            EndIf
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroTails_Hurt)
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(3.0))
+            Call(JumpToGoal, ACTOR_SELF, 10, false, false, false)
+        EndCaseGroup
+        CaseDefault
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(1.6))
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_QUICK_PLAYER_JUMP)
+            Call(JumpToGoal, ACTOR_SELF, 20, true, 0, 0)
+            Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, BS_FLAGS1_TRIGGER_EVENTS)
+    EndSwitch
     
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroTails_Idle)
     Call(SetGoalToHome, ACTOR_SELF)
+    Call(SetActorSpeed, ACTOR_SELF, Float(1.8))
     Call(FlyToGoal, ACTOR_SELF, 0, 0, EASING_COS_IN_OUT)
     
     Call(EnableIdleScript, ACTOR_SELF, IDLE_SCRIPT_ENABLE)
@@ -350,34 +369,47 @@ EvtScript N(EVS_CarryAttack) = {
     Call(SetActorSpeed, ACTOR_PLAYER, Float(1.9))
     Call(PlaySoundAtActor, ACTOR_SELF, SOUND_MALLET_SWING)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroTails_Carry)
-    Call(UseIdleAnimation, ACTOR_PLAYER, false)
-    Call(SetAnimation, ACTOR_PLAYER, 0, ANIM_Mario1_Hurt)
-    Wait(5)
-    Add(LVar1, 60)
-    Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Sub(LVar1, 18)
-    Add(LVar0, 10)
-    Call(SetGoalPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
+    Call(EnemyTestTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, BS_FLAGS1_INCLUDE_POWER_UPS)
+    Switch(LVarA)
+        CaseOrEq(HIT_RESULT_MISS)
+        CaseOrEq(HIT_RESULT_LUCKY)
+            Wait(15)
+            IfEq(LVarA, HIT_RESULT_LUCKY)
+                Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
+            EndIf
+            Wait(15)
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroTails_Idle)
+        EndCaseGroup
+        CaseDefault
+            Call(UseIdleAnimation, ACTOR_PLAYER, false)
+            Call(SetAnimation, ACTOR_PLAYER, 0, ANIM_Mario1_Hurt)
+            Wait(5)
+            Add(LVar1, 60)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Sub(LVar1, 18)
+            Add(LVar0, 10)
+            Call(SetGoalPos, ACTOR_PLAYER, LVar0, LVar1, LVar2)
+
+            Thread
+                Call(FlyToGoal, ACTOR_SELF, 0, 0, 0)
+            EndThread
+            Thread
+                Wait(1)
+                Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
+                Call(MoveBattleCamOver, 60)
+            EndThread
+            Call(FlyToGoal, ACTOR_PLAYER, 0, 0, 0)
+
+            Wait(15)
+            Call(SetGoalToHome, ACTOR_PLAYER)
+            Call(SetActorJumpGravity, ACTOR_PLAYER, Float(1.0))
+
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroTails_Idle)
+            Call(PlaySoundAtActor, ACTOR_PLAYER, SOUND_FALL_QUICK)
+            Call(JumpToGoal, ACTOR_PLAYER, 15, 0, 0, 0)
+            Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_NO_CONTACT, 0, 0, DMG_CARRY, BS_FLAGS1_TRIGGER_EVENTS)
+    EndSwitch
     
-    Thread
-        Call(FlyToGoal, ACTOR_SELF, 0, 0, 0)
-    EndThread
-    Thread
-        Wait(1)
-        Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
-        Call(MoveBattleCamOver, 60)
-    EndThread
-    Call(FlyToGoal, ACTOR_PLAYER, 0, 0, 0)
-
-    Wait(15)
-    Call(SetGoalToHome, ACTOR_PLAYER)
-    Call(SetActorJumpGravity, ACTOR_PLAYER, Float(1.0))
-
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroTails_Idle)
-    Call(PlaySoundAtActor, ACTOR_PLAYER, SOUND_FALL_QUICK)
-    Call(JumpToGoal, ACTOR_PLAYER, 15, 0, 0, 0)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_NO_CONTACT, 0, 0, DMG_CARRY, 0)
-
     Call(SetActorSpeed, ACTOR_SELF, Float(3.0))
     Call(SetGoalToHome, ACTOR_SELF)
     Call(FlyToGoal, ACTOR_SELF, 0, 0, EASING_COS_IN_OUT)

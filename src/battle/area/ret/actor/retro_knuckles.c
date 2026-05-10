@@ -37,9 +37,9 @@ s32 N(StatusTable)[] = {
     STATUS_KEY_POISON,              0,
     STATUS_KEY_FROZEN,              0,
     STATUS_KEY_DIZZY,              40,
-    STATUS_KEY_UNUSED,                0,
+    STATUS_KEY_UNUSED,              0,
     STATUS_KEY_STATIC,              0,
-    STATUS_KEY_PARALYZE,            0,
+    STATUS_KEY_PARALYZE,           40,
     STATUS_KEY_SHRINK,              0,
     STATUS_KEY_STOP,                0,
     STATUS_TURN_MOD_DEFAULT,        0,
@@ -47,7 +47,7 @@ s32 N(StatusTable)[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_UNUSED,           0,
+    STATUS_TURN_MOD_UNUSED,         0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -192,16 +192,34 @@ EvtScript N(EVS_JumpAttack) = {
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(SetActorJumpGravity, ACTOR_SELF, Float(0.8))
     Call(SetJumpAnimations, ACTOR_SELF, PRT_MAIN, ANIM_RetroKnuckles_Roll, ANIM_RetroKnuckles_Roll, ANIM_RetroKnuckles_Roll)
-    Call(JumpToGoal, ACTOR_SELF, 30, true, false, false)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, 0)
-    Call(SetActorJumpGravity, ACTOR_SELF, Float(0.6))
-    Call(JumpToGoal, ACTOR_SELF, 30, true, false, false)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, 0)
-    Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Add(LVar0, 50)
-    Call(SetGoalPos, ACTOR_SELF, LVar0, 0, LVar2)
-    Call(SetActorJumpGravity, ACTOR_SELF, Float(0.3))
-    Call(JumpToGoal, ACTOR_SELF, 30, true, false, false)
+    Call(PlaySoundAtActor, ACTOR_SELF, SOUND_QUICK_PLAYER_JUMP)
+    Call(EnemyTestTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, BS_FLAGS1_INCLUDE_POWER_UPS)
+    Switch(LVarA)
+        CaseOrEq(HIT_RESULT_MISS)
+        CaseOrEq(HIT_RESULT_LUCKY)
+            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, 0, LVar2)
+            Call(JumpToGoal, ACTOR_SELF, 20, true, false, false)
+            IfEq(LVarA, HIT_RESULT_LUCKY)
+                Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
+            EndIf
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroKnuckles_Hurt)
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(3.0))
+            Call(JumpToGoal, ACTOR_SELF, 10, false, false, false)
+        EndCaseGroup
+        CaseDefault
+            Call(JumpToGoal, ACTOR_SELF, 30, true, false, false)
+            Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, 0)
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(0.6))
+            Call(JumpToGoal, ACTOR_SELF, 30, true, false, false)
+            Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, 0)
+            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Add(LVar0, 50)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, 0, LVar2)
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(0.3))
+            Call(JumpToGoal, ACTOR_SELF, 30, true, false, false)
+    EndSwitch
+
     Call(SetGoalToHome, ACTOR_SELF)
     Call(SetActorYaw, ACTOR_SELF, 180)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroKnuckles_Walk)
@@ -233,10 +251,22 @@ EvtScript N(EVS_GlideAttack) = {
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroKnuckles_Glide)
     Call(SetGoalToTarget, ACTOR_SELF)
     Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
-    Sub(LVar1, 20)
     Call(SetGoalPos, ACTOR_SELF, LVar0, 0, LVar2)
-    Call(FlyToGoal, ACTOR_SELF, 0, 0, 0)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_SMASH, 0, 0, DMG_GLIDE, 0)
+    Call(EnemyTestTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_SMASH, 0, 0, BS_FLAGS1_INCLUDE_POWER_UPS)
+    Switch(LVarA)
+        CaseOrEq(HIT_RESULT_MISS)
+        CaseOrEq(HIT_RESULT_LUCKY)
+            Call(AddGoalPos, ACTOR_SELF, -20, 0, 0)
+            Call(FlyToGoal, ACTOR_SELF, 0, 0, 0)
+            IfEq(LVarA, HIT_RESULT_LUCKY)
+                Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
+            EndIf
+        EndCaseGroup
+        CaseDefault
+            Call(FlyToGoal, ACTOR_SELF, 0, 0, 0)
+            Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_SMASH, 0, 0, DMG_GLIDE, BS_FLAGS1_TRIGGER_EVENTS)
+    EndSwitch
+
     Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Add(LVar0, 50)
     Call(SetGoalPos, ACTOR_SELF, LVar0, 0, LVar2)

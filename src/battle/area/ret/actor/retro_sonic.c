@@ -48,7 +48,7 @@ s32 N(StatusTable)[] = {
     STATUS_KEY_DIZZY,              40,
     STATUS_KEY_UNUSED,                0,
     STATUS_KEY_STATIC,              0,
-    STATUS_KEY_PARALYZE,            0,
+    STATUS_KEY_PARALYZE,           40,
     STATUS_KEY_SHRINK,              0,
     STATUS_KEY_STOP,                0,
     STATUS_TURN_MOD_DEFAULT,        0,
@@ -56,7 +56,7 @@ s32 N(StatusTable)[] = {
     STATUS_TURN_MOD_POISON,         0,
     STATUS_TURN_MOD_FROZEN,         0,
     STATUS_TURN_MOD_DIZZY,          0,
-    STATUS_TURN_MOD_UNUSED,           0,
+    STATUS_TURN_MOD_UNUSED,         0,
     STATUS_TURN_MOD_STATIC,         0,
     STATUS_TURN_MOD_PARALYZE,       0,
     STATUS_TURN_MOD_SHRINK,         0,
@@ -241,16 +241,43 @@ EvtScript N(EVS_SpinDashAttack) = {
     Call(MoveBattleCamOver, 15)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_SpinDash)
     Thread
+        Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPER_SHELL_SPINUP)
+        Wait(10)
+        Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPER_SHELL_SPINUP)
+        Wait(10)
+        Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPER_SHELL_SPINUP)
+        Wait(10)
+        Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPER_SHELL_SPINUP)
+        Wait(10)
+        Call(PlaySoundAtActor, ACTOR_SELF, SOUND_KOOPER_SHELL_SPINUP)
+    EndThread
+    Thread
         Wait(30)
         Call(UseBattleCamPreset, BTL_CAM_DEFAULT)
         Call(MoveBattleCamOver, 30)
     EndThread
     Wait(55)
-    Call(SetGoalToTarget, ACTOR_SELF)
-    Call(SetActorSpeed, ACTOR_SELF, Float(12.0))
-    Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_Roll)
-    Call(RunToGoal, ACTOR_SELF, 0, true)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_SMASH, 0, 0, DMG_SPIN, 0)
+    Call(EnemyTestTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_SMASH, 0, 0, DMG_SPIN, BS_FLAGS1_INCLUDE_POWER_UPS)
+    Switch(LVarA)
+        CaseOrEq(HIT_RESULT_MISS)
+        CaseOrEq(HIT_RESULT_LUCKY)
+            Call(SetGoalToTarget, ACTOR_SELF)
+            Call(SetActorSpeed, ACTOR_SELF, Float(20.0))
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_Roll)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_PARAKARRY_SHELL_SHOT)
+            Call(RunToGoal, ACTOR_SELF, 0, true)
+            IfEq(LVarA, HIT_RESULT_LUCKY)
+                Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
+            EndIf
+        EndCaseGroup
+        CaseDefault
+            Call(SetGoalToTarget, ACTOR_SELF)
+            Call(SetActorSpeed, ACTOR_SELF, Float(20.0))
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_Roll)
+            Call(PlaySoundAtActor, ACTOR_SELF, SOUND_PARAKARRY_SHELL_SHOT)
+            Call(RunToGoal, ACTOR_SELF, 0, true)
+            Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_SMASH, 0, 0, DMG_SPIN, BS_FLAGS1_TRIGGER_EVENTS)
+    EndSwitch
     Call(GetActorPos, ACTOR_SELF, LVar0, LVar1, LVar2)
     Sub(LVar0, 400)
     Call(SetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
@@ -288,17 +315,36 @@ EvtScript N(EVS_JumpAttack) = {
     Call(SetActorSpeed, ACTOR_SELF, Float(5.0))
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_Run)
     Call(RunToGoal, ACTOR_SELF, 0, false)
-    Call(SetGoalToTarget, ACTOR_SELF)
-    Call(SetActorJumpGravity, ACTOR_SELF, Float(1.0))
-    Call(SetJumpAnimations, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_Roll, ANIM_RetroSonic_Roll, ANIM_RetroSonic_Roll)
-    Call(JumpToGoal, ACTOR_SELF, 20, true, false, false)
-    Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, 0)
-    Call(GetGoalPos, ACTOR_SELF, LVarA, LVarB, LVarC)
-    Add(LVarA, 40)
-    Call(SetGoalPos, ACTOR_SELF, LVarA, 0, LVarC)
-    Call(JumpToGoal, ACTOR_SELF, 15, true, false, false)
-    Call(SetActorJumpGravity, ACTOR_SELF, Float(0.3))
-    Call(JumpToGoal, ACTOR_SELF, 10, true, false, false)
+    Call(EnemyTestTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, BS_FLAGS1_INCLUDE_POWER_UPS)
+    Switch(LVarA)
+        CaseOrEq(HIT_RESULT_MISS)
+        CaseOrEq(HIT_RESULT_LUCKY)
+            Call(SetGoalToTarget, ACTOR_SELF)
+            Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
+            Call(SetGoalPos, ACTOR_SELF, LVar0, 0, LVar2)
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(1.0))
+            Call(SetJumpAnimations, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_Roll, ANIM_RetroSonic_Roll, ANIM_RetroSonic_Roll)
+            Call(JumpToGoal, ACTOR_SELF, 20, true, false, false)
+            IfEq(LVarA, HIT_RESULT_LUCKY)
+                Call(EnemyTestTarget, ACTOR_SELF, LVar0, DAMAGE_TYPE_TRIGGER_LUCKY, 0, 0, 0)
+            EndIf
+            Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_Hurt)
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(3.0))
+            Call(JumpToGoal, ACTOR_SELF, 10, false, false, false)
+        EndCaseGroup
+        CaseDefault
+            Call(SetGoalToTarget, ACTOR_SELF)
+            Call(SetActorJumpGravity, ACTOR_SELF, Float(1.0))
+            Call(SetJumpAnimations, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_Roll, ANIM_RetroSonic_Roll, ANIM_RetroSonic_Roll)
+            Call(JumpToGoal, ACTOR_SELF, 20, true, false, false)
+            Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_JUMP, 0, 0, DMG_JUMP, BS_FLAGS1_TRIGGER_EVENTS)
+        Call(GetGoalPos, ACTOR_SELF, LVarA, LVarB, LVarC)
+        Add(LVarA, 40)
+        Call(SetGoalPos, ACTOR_SELF, LVarA, 0, LVarC)
+        Call(JumpToGoal, ACTOR_SELF, 15, true, false, false)
+        Call(SetActorJumpGravity, ACTOR_SELF, Float(0.3))
+        Call(JumpToGoal, ACTOR_SELF, 10, true, false, false)
+    EndSwitch
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_Run)
     Call(SetGoalToHome, ACTOR_SELF)
     Call(SetActorYaw, ACTOR_SELF, 180)
@@ -317,7 +363,7 @@ EvtScript N(EVS_SuperAttack) = {
     Call(SetTargetActor, ACTOR_SELF, ACTOR_PLAYER)
     Call(SetAnimation, ACTOR_SELF, PRT_MAIN, ANIM_RetroSonic_SuperDash)
     Call(SetGoalToTarget, ACTOR_SELF)
-    Call(SetActorSpeed, ACTOR_SELF, Float(9.0))
+    Call(SetActorSpeed, ACTOR_SELF, Float(13.0))
     Call(RunToGoal, ACTOR_SELF, 0, false)
     Call(EnemyDamageTarget, ACTOR_SELF, LVarA, DAMAGE_TYPE_SMASH, 0, 0, DMG_SUPER_ATTACK, 0)
     Call(GetGoalPos, ACTOR_SELF, LVar0, LVar1, LVar2)
